@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Integral CF Bold";
-  src: url("/app/public/fonts/IntegralCF-Bold.woff2") format("woff2");
+  src: url("/public/fonts/IntegralCF-Bold.woff2") format("woff2");
 }
 
 * {

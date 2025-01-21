@@ -13,7 +13,7 @@ export default {
         grayBG: "#F0F0F0",
       },
       backgroundImage: {
-        "lupe-icon": "url('/app/src/assets/Lupe.png')",
+        "lupe-icon": "url('/frontend/src/assets/Lupe.png')",
       },
     },
   },
