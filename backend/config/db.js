@@ -33,3 +33,23 @@
 // `);
 
 // export default db;
+
+import mysql from "mysql2";
+
+const db = mysql.createConnection({
+  host: "localhost", // Host, w tym przypadku localhost, bo aplikacja i baza są na tym samym hoście
+  user: "root", // Użytkownik bazy danych
+  password: "root", // Hasło użytkownika
+  database: "test_db", // Nazwa bazy danych
+  port: 3306, // Port, na którym działa MySQL w kontenerze
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("Nie udało się połączyć z bazą danych:", err);
+    process.exit(1);
+  }
+  console.log("Połączono z bazą danych MySQL!");
+});
+
+module.exports = db;
