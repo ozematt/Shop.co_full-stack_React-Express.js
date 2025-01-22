@@ -21,6 +21,7 @@ db.connect((err) => {
   }
   console.log("Connected to MySQL as ID " + db.threadId);
 });
+
 // Routes
 app.get("/", (req, res) => {
   // db.query("SELECT * FROM users", (err, results) => {
