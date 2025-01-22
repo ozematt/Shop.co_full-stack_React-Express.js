@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./src/routes/index.js";
+// import routes from "./routes/index.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,7 +12,10 @@ app.use(express.json());
 // Routes
 
 // Trasy API
-app.use("/api", routes);
+// app.use("/api", routes);
+app.get("/", () => {
+  console.log("działa");
+});
 
 ////
 app.listen(PORT, () => {

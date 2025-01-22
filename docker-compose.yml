@@ -27,25 +27,26 @@ services:
     networks:
       - mysql-network # Sieć, w której będzie działał kontener
 
-    # backend:
-    #   build: ./backend
-    #   container_name: shop-co-backend
-    #   environment:
-    #     - JWT_SECRET=my_password_very_very
-    #     - NODE_ENV=development
-    #     - BACKEND_PORT=5005
-    #   ports:
-    #     - "3000:3000"  # Mapowanie portów dla aplikacji Node.js
-    #   depends_on:
-    #     - db  # Backend będzie zależny od kontenera z MySQL
-    #   volumes:
-    #     - ./backend:/app
-    #     - /app/node_modules
-    #   networks:
-    #     - mysql-network  # Używa tej samej sieci, co MySQL
+  backend:
+    build: ./backend
+    container_name: shop-co-backend
+    environment:
+      - JWT_SECRET=my_password_very_very
+      - NODE_ENV=development
+      - BACKEND_PORT=3005
+    ports:
+      - "3005:3005" # Mapowanie portów dla aplikacji Node.js
+    depends_on:
+      - db # Backend będzie zależny od kontenera z MySQL
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - mysql-network # Używa tej samej sieci, co MySQL
 
 volumes:
   mysql-data: # Definicja wolumenu do przechowywania danych MySQL
 
 networks:
   mysql-network: # Definicja sieci, w której będą kontenery
+    driver: bridge

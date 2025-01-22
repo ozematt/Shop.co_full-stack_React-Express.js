@@ -37,10 +37,10 @@
 import mysql from "mysql2";
 
 const db = mysql.createConnection({
-  host: "localhost", // Host, w tym przypadku localhost, bo aplikacja i baza są na tym samym hoście
-  user: "root", // Użytkownik bazy danych
-  password: "root", // Hasło użytkownika
-  database: "test_db", // Nazwa bazy danych
+  host: "mysql", // Nazwa usługi z docker-compose.yml
+  user: "user", // Użytkownik bazy danych
+  password: "userpass", // Hasło użytkownika
+  database: "shop_co_db", // Nazwa bazy danych
   port: 3306, // Port, na którym działa MySQL w kontenerze
 });
 
