@@ -5,7 +5,6 @@ require("dotenv").config();
 const app = express();
 const PORT = 3005;
 
-// Konfiguracja połączenia z bazą danych MySQL
 const db = mysql.createConnection({
   host: process.env.DB_HOST || "127.0.0.1",
   user: process.env.DB_USER || "root",
