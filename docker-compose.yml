@@ -12,7 +12,7 @@ services:
   #     - /app/node_modules # Ensures proper functioning of dependencies
   #   command: npm run dev # Launches Vite development server
 
-  db:
+  mysql:
     image: mysql:latest # Wykorzystuje najnowszy obraz MySQL
     container_name: mysql-db
     environment:
@@ -37,7 +37,7 @@ services:
     ports:
       - "3005:3005" # Mapowanie portów dla aplikacji Node.js
     depends_on:
-      - db # Backend będzie zależny od kontenera z MySQL
+      - mysql # Backend będzie zależny od kontenera z MySQL
     volumes:
       - ./backend:/app
       - /app/node_modules
