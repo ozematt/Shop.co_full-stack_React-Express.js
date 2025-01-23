@@ -13,13 +13,13 @@ services:
   #   command: npm run dev # Launches Vite development server
 
   mysql:
-    image: mysql:latest # Wykorzystuje najnowszy obraz MySQL
+    image: mysql:8.0 # Wykorzystuje najnowszy obraz MySQL
     container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD=root # Hasło do użytkownika root
-      MYSQL_DATABASE=shop_co_db # Nazwa bazy danych do stworzenia przy starcie
-      MYSQL_USER=user # Nazwa użytkownika
-      MYSQL_PASSWORD=userpass # Hasło dla użytkownika
+      MYSQL_ROOT_PASSWORD: root # Hasło do użytkownika root
+      MYSQL_DATABASE: shop_co_db # Nazwa bazy danych do stworzenia przy starcie
+      MYSQL_USER: user # Nazwa użytkownika
+      MYSQL_PASSWORD: userpass # Hasło dla użytkownika
     ports:
       - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
     volumes:
@@ -31,6 +31,11 @@ services:
     build: ./backend
     container_name: shop-co-backend
     environment:
+      - DB_HOST=mysql-db
+      - DB_USER=user
+      - DB_PASSWORD=userpass
+      - DB_NAME=shop_co_db
+      - DB_PORT=3306
       - JWT_SECRET=my_password_very_very
       - NODE_ENV=development
       - BACKEND_PORT=3005
