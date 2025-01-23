@@ -24,8 +24,8 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ id: results.insertId }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
-    res.send({ message: "OKOKK" });
-    // res.json({ token });
+    // res.send({ message: "OKOKK" });
+    res.json({ token });
   } catch (err) {
     console.log(err.message);
     res.sendStatus(503);
@@ -71,3 +71,4 @@ router.post("/login", async (req, res) => {
 });
 
 export default router;
+``;
