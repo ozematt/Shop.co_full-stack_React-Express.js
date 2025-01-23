@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/api");
+
 connectToDatabase()
   .then(() => {
     app.listen(PORT, () => {

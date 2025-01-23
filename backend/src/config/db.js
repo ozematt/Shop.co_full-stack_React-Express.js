@@ -1,11 +1,11 @@
 import mysql from "mysql2";
-import dotenv from "dotenv";
 import { createTable } from "../utils/helperFunction.js";
 import { orderItemTable, ordersTable, usersTable } from "./query.js";
+import dotenv from "dotenv";
 dotenv.config();
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST, // Nazwa usługi z docker-compose.yml
+  host: process.env.DB_HOST, // Nazwa usługi z docker-compose.yml "127.0.0.1"
   user: process.env.DB_USER, // Użytkownik bazy danych
   password: process.env.DB_PASSWORD, // Hasło użytkownika
   database: process.env.DB_NAME, // Nazwa bazy danych
@@ -19,10 +19,13 @@ const connectToDatabase = async () => {
   while (retries) {
     try {
       await poolPromise.getConnection();
+
       console.log("MySQL Connection Success 👍 👍");
+
       await createTable(usersTable);
       await createTable(ordersTable);
       await createTable(orderItemTable);
+
       break; // Po udanym połączeniu, wychodzimy z pętli
     } catch (error) {
       console.log("Database Connection Error, retrying...");
