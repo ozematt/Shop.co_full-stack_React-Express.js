@@ -1,5 +1,7 @@
 import express from "express";
 import { connectToDatabase } from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,7 +16,7 @@ app.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
-app.get("/api");
+app.use("/api", authRoutes);
 
 connectToDatabase()
   .then(() => {
