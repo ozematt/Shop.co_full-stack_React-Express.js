@@ -36,34 +36,30 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // const [rows] = await poolPromise.query(
-    //   `
-    //   SELECT *
-    //   FROM users
-    //   WHERE username = ?`,
-    //   [username]
-    // );
-
-    // const user = rows[0];
-
+    const [rows] = await poolPromise.query(
+      `
+      SELECT *
+      FROM users
+      WHERE username = ?`,
+      [username]
+    );
+    const user = rows[0];
     // if we cannot find a user associated with that username, return out of the function
-    // if (!user) {
-    //   return res.status(404).send({ message: "User not found" });
-    // }
-
-    // const passwordIsValid = bcrypt.compareSync(password, result.password);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const passwordIsValid = bcrypt.compareSync(password, result.password);
     // if the password does not match, return out of the function
-    // if (!passwordIsValid) {
-    //   return res.status(401).send({ message: "Invalid password" });
-    // }
-
-    // console.log(user);
+    if (!passwordIsValid) {
+      return res.status(401).send({ message: "Invalid password" });
+    }
+    // console.log();
     // then we have a successful authentication
-    // const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    //   expiresIn: "24h",
-    // });
-    // res.json({ token });
-    res.sendStatus(200);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
+    res.json({ token });
+    // res.sendStatus(200);
   } catch (err) {
     console.log(err.message);
     res.sendStatus(503);
