@@ -2,7 +2,7 @@ const usersTable = `
         CREATE TABLE IF NOT EXISTS users (
           id INTEGER PRIMARY KEY AUTO_INCREMENT,
           username VARCHAR(255) UNIQUE,
-          password VARCHAR(255)
+          password TEXT
         )
       `;
 
