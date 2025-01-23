@@ -16,13 +16,12 @@ router.post("/register", async (req, res) => {
 
   // save the new user
   try {
-    const [result] = await poolPromise.query(
+    const [results] = await poolPromise.query(
       `INSERT INTO users (username, password) VALUES (?, ?)`,
       [username, hashedPassword]
     );
-
     // create a token
-    const token = jwt.sign({ id: result.insertId }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: results.insertId }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
@@ -33,31 +32,36 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const [result] = poolPromise.query(
-      `SELECT * FROM users WHERE username = ?`,
+    const [rows] = await poolPromise.query(
+      `
+      SELECT * 
+      FROM users 
+      WHERE username = ?`,
       [username]
     );
-    // if we cannot find a user associated with that username, return out of the function
-    if (!result) {
-      return res.status(404).send({ message: "User not found" });
-    }
-
-    const passwordIsValid = bcrypt.compareSync(password, result.password);
-    // if the password does not match, return out of the function
-    if (!passwordIsValid) {
-      return res.status(401).send({ message: "Invalid password" });
-    }
-
+    const user = rows[0];
     console.log(user);
+    // if we cannot find a user associated with that username, return out of the function
+    // if (!result) {
+    //   return res.status(404).send({ message: "User not found" });
+    // }
+
+    // const passwordIsValid = bcrypt.compareSync(password, result.password);
+    // if the password does not match, return out of the function
+    // if (!passwordIsValid) {
+    //   return res.status(401).send({ message: "Invalid password" });
+    // }
+
+    // console.log(user);
     // then we have a successful authentication
-    const token = jwt.sign({ id: result.insertId }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-    res.json({ token });
+    // const token = jwt.sign({ id: result.insertId }, process.env.JWT_SECRET, {
+    //   expiresIn: "24h",
+    // });
+    // res.json({ token });
   } catch (err) {
     console.log(err.message);
     res.sendStatus(503);

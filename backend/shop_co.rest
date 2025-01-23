@@ -1,11 +1,21 @@
 ### GET /
 GET http://localhost:3005/
 
-###
+### POST /API/REGISTER
 POST http://localhost:3005/api/register
+Content-Type: application/json
+
+{
+    "username":"test13@gmail.com",
+    "password":"123456789"
+}
+
+### POST /API/LOGIN
+POST http://localhost:3005/api/login
 Content-Type: application/json
 
 {
     "username":"test123@gmail.com",
     "password":"123456789"
 }
+
