@@ -1,5 +1,7 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { createTable } from "../utils/helperFunction.js";
+import { orderItemTable, ordersTable, usersTable } from "./query.js";
 dotenv.config();
 
 const pool = mysql.createPool({
@@ -13,14 +15,25 @@ const pool = mysql.createPool({
 const poolPromise = pool.promise();
 
 const connectToDatabase = async () => {
-  try {
-    await poolPromise.getConnection();
-    console.log("MySQL Connection Success 👍 👍");
-  } catch (error) {
-    console.log("Database Connection Error");
-    console.log(error);
-    throw error;
+  let retries = 5;
+  while (retries) {
+    try {
+      await poolPromise.getConnection();
+      console.log("MySQL Connection Success 👍 👍");
+      await createTable(usersTable);
+      await createTable(ordersTable);
+      await createTable(orderItemTable);
+      break; // Po udanym połączeniu, wychodzimy z pętli
+    } catch (error) {
+      console.log("Database Connection Error, retrying...");
+      console.log(error);
+      retries -= 1;
+      if (retries === 0) {
+        throw new Error("MySQL Connection failed after several attempts.");
+      }
+      await new Promise((res) => setTimeout(res, 5000)); // Czekaj 5 sekund przed kolejną próbą
+    }
   }
 };
 
-export { connectToDatabase, pool };
+export { connectToDatabase, poolPromise };
