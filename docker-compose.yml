@@ -1,16 +1,18 @@
 services:
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   container_name: travel-app-frontend
-  #   environment:
-  #     - NODE_ENV=development
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules # Ensures proper functioning of dependencies
-  #   command: npm run dev # Launches Vite development server
+  frontend:
+    build:
+      context: ./frontend
+    container_name: shop-co-frontend
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Ensures proper functioning of dependencies
+    networks:
+      - app-network
+    command: npm run dev # Launches Vite development server
 
   mysql:
     image: mysql:8.0 # Wykorzystuje najnowszy obraz MySQL
@@ -25,6 +27,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql # Użycie wolumenu do przechowywania danych
     networks:
+      - app-network
       - mysql-network # Sieć, w której będzie działał kontener
 
   backend:
@@ -54,4 +57,6 @@ volumes:
 
 networks:
   mysql-network: # Definicja sieci, w której będą kontenery
+    driver: bridge
+  app-network:
     driver: bridge
