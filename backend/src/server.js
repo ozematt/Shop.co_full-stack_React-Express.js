@@ -1,8 +1,8 @@
 import express from "express";
-// import routes from "./routes/index.js";
+import { connectToDatabase } from "./config/db.js";
 import dotenv from "dotenv";
-
 dotenv.config();
+
 const app = express();
 const PORT = process.env.BACKEND_PORT || 3005;
 
@@ -10,14 +10,17 @@ const PORT = process.env.BACKEND_PORT || 3005;
 app.use(express.json());
 
 // Routes
-
-// Trasy API
-// app.use("/api", routes);
-app.get("/", () => {
-  console.log("działa");
+app.get("/", (req, res) => {
+  res.sendStatus(200);
 });
 
-////
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+connectToDatabase()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Serwer działa na porcie ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error occurred with mysql connection. Error:", err);
+    process.exit(0);
+  });

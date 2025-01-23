@@ -16,10 +16,10 @@ services:
     image: mysql:latest # Wykorzystuje najnowszy obraz MySQL
     container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root # Hasło do użytkownika root
-      MYSQL_DATABASE: shop_co_db # Nazwa bazy danych do stworzenia przy starcie
-      MYSQL_USER: user # Nazwa użytkownika
-      MYSQL_PASSWORD: userpass # Hasło dla użytkownika
+      MYSQL_ROOT_PASSWORD=root # Hasło do użytkownika root
+      MYSQL_DATABASE=shop_co_db # Nazwa bazy danych do stworzenia przy starcie
+      MYSQL_USER=user # Nazwa użytkownika
+      MYSQL_PASSWORD=userpass # Hasło dla użytkownika
     ports:
       - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
     volumes:

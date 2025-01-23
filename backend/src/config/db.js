@@ -1,55 +1,26 @@
-// import { DatabaseSync } from "node:sqlite";
-// const db = new DatabaseSync(":memory:");
-
-// // Execute SQL statements from strings
-// db.exec(`
-//     CREATE TABLE users (
-//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//         username VARCHAR(255) UNIQUE,
-//         password VARCHAR(255)
-//     )
-// `);
-
-// db.exec(`
-//     CREATE TABLE orders (
-//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//         user_id INTEGER,
-//         date TEXT,
-//         total REAL,
-//         FOREIGN KEY(user_id) REFERENCES users(id)
-//     )
-// `);
-
-// db.exec(`
-//     CREATE TABLE order_item (
-//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//         order_id INTEGER,
-//         title TEXT NOT NULL,
-//         image TEXT,
-//         price REAL NOT NULL,
-//         quantity INTEGER NOT NULL,
-//         FOREIGN KEY (order_id) REFERENCES orders(id)
-//     )
-// `);
-
-// export default db;
-
 import mysql from "mysql2";
+import dotenv from "dotenv";
+dotenv.config();
 
-const db = mysql.createConnection({
-  host: "mysql", // Nazwa usługi z docker-compose.yml
-  user: "user", // Użytkownik bazy danych
-  password: "userpass", // Hasło użytkownika
-  database: "shop_co_db", // Nazwa bazy danych
-  port: 3306, // Port, na którym działa MySQL w kontenerze
-});
+const pool = mysql
+  .createPool({
+    host: process.env.DB_HOST, // Nazwa usługi z docker-compose.yml
+    user: process.env.DB_USER, // Użytkownik bazy danych
+    password: process.env.DB_PASSWORD, // Hasło użytkownika
+    database: process.env.DB_NAME, // Nazwa bazy danych
+    port: process.env.DB_PORT, // Port, na którym działa MySQL w kontenerze
+  })
+  .promise();
 
-db.connect((err) => {
-  if (err) {
-    console.error("Nie udało się połączyć z bazą danych:", err);
-    process.exit(1);
+const connectToDatabase = async () => {
+  try {
+    await pool.getConnection();
+    console.log("MySQL Connection Success 👍 👍");
+  } catch (error) {
+    console.log("Database Connection Error");
+    console.log(error);
+    throw error;
   }
-  console.log("Połączono z bazą danych MySQL!");
-});
+};
 
-module.exports = db;
+export { connectToDatabase, pool };
