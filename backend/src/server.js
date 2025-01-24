@@ -12,6 +12,10 @@ const PORT = process.env.BACKEND_PORT || 3005;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 // Routes
 app.get("/", (req, res) => {
