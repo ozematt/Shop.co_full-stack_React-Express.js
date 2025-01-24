@@ -4,6 +4,7 @@ import { connectToDatabase } from "./db.js";
 import authRoutes from "./routes/authRoutes.js";
 
 import dotenv from "dotenv";
+import { errorHandler } from "./utils/errorHandler.js";
 dotenv.config();
 
 const app = express();
@@ -12,10 +13,6 @@ const PORT = process.env.BACKEND_PORT || 3005;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-});
 
 // Routes
 app.get("/", (req, res) => {
@@ -23,6 +20,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", authRoutes);
+
+app.use(errorHandler); //middleware for handling errors
 
 connectToDatabase()
   .then(() => {
