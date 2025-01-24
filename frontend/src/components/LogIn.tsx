@@ -24,28 +24,28 @@ const LogIn = () => {
   });
 
   //handling responses from the server
-  const mutation = useMutation({
-    mutationFn: userLogin,
-    onError: () => {
-      setError("username", {
-        type: "custom",
-        message: "User does not exist",
-      });
-    },
-    onSuccess: (data) => {
-      () => clearErrors(["username"]);
-      reset(); //form fields reset
+  // const mutation = useMutation({
+  //   mutationFn: userLogin,
+  //   onError: () => {
+  //     setError("username", {
+  //       type: "custom",
+  //       message: "User does not exist",
+  //     });
+  //   },
+  //   onSuccess: (data) => {
+  //     () => clearErrors(["username"]);
+  //     reset(); //form fields reset
 
-      const user = { username: data.username, id: data.id };
-      localStorage.setItem("user", JSON.stringify(user)); // add user to local storage
-      navigate("/shop");
-    },
-  });
+  //     const user = { username: data.username, id: data.id };
+  //     localStorage.setItem("user", JSON.stringify(user)); // add user to local storage
+  //     navigate("/shop");
+  //   },
+  // });
 
-  //handle submit form data
-  const onSubmit = (data: LoginSchema) => {
-    mutation.mutate(data);
-  };
+  // //handle submit form data
+  // const onSubmit = (data: LoginSchema) => {
+  //   mutation.mutate(data);
+  // };
 
   ////UI
   return (
@@ -57,7 +57,7 @@ const LogIn = () => {
           </h2>
 
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            // onSubmit={handleSubmit(onSubmit)}
             className="w-full max-w-[400px] space-y-4 pb-9 pt-8 sm:pb-[80px]"
           >
             <div className="relative w-full">

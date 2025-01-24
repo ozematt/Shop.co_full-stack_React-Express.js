@@ -1,50 +1,34 @@
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../api/queries";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Newsletter } from "../sections";
 import { Button } from "./";
-import { user, lock } from "../assets";
+import { lock, email } from "../assets";
 import { type SignUpSchema, signUpSchema } from "../lib/types";
+import authenticate from "../api/queries/authorization";
+import { AppDispatch, useAppDispatch } from "../redux/store";
+import { logUser } from "../redux/userSlice";
 
 const SignUp = () => {
   //
   ////DATA
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    clearErrors,
-    reset,
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
 
-  //handling responses from the server
-  const mutation = useMutation({
-    mutationFn: userLogin,
-    onError: () => {
-      setError("username", {
-        type: "custom",
-        message: "User does not exist",
-      });
-    },
-    onSuccess: (data) => {
-      () => clearErrors(["username"]);
-      reset(); //form fields reset
-
-      const user = { username: data.username, id: data.id };
-      localStorage.setItem("user", JSON.stringify(user)); // add user to local storage
-      navigate("/shop");
-    },
-  });
-
   //handle submit form data
-  const onSubmit = (data: SignUpSchema) => {
-    mutation.mutate(data);
+  const onSubmit = async (data: SignUpSchema) => {
+    console.log(data);
+
+    await authenticate("register", data.username, data.password);
+    dispatch(logUser(data.username));
+    navigate("/shop");
   };
 
   ////UI
@@ -53,7 +37,7 @@ const SignUp = () => {
       <section className="max-container bg-grayBG px-4 sm:px-[100px]">
         <div className="mx-auto flex w-full max-w-[400px] flex-col">
           <h2 className="pt-[60px] font-integralCFBold text-[32px] max-sm:leading-9 sm:pt-[100px] sm:text-5xl">
-            Welcome Back!
+            Let's just Sign Up!
           </h2>
 
           <form
@@ -62,7 +46,7 @@ const SignUp = () => {
           >
             <div className="relative w-full">
               <img
-                src={user}
+                src={email}
                 alt="envelope"
                 width={20}
                 height={20}
@@ -71,7 +55,7 @@ const SignUp = () => {
               <input
                 {...register("username")}
                 type="text"
-                placeholder="Enter your user name"
+                placeholder="Enter your email"
                 className="h-[48px] w-full rounded-full bg-white pl-[60px] focus:outline-none focus:ring-1 focus:ring-black max-sm:placeholder:text-[14px]"
               />
             </div>
@@ -96,6 +80,11 @@ const SignUp = () => {
                 className="h-[48px] w-full rounded-full bg-white pl-[60px] focus:outline-none focus:ring-1 focus:ring-black max-sm:placeholder:text-[14px]"
               />
             </div>
+            {errors.password && (
+              <p className="pb-2 pl-5 leading-[1px] text-red-500">
+                {errors.password.message}
+              </p>
+            )}
             <div className="relative w-full">
               <img
                 src={lock}
@@ -111,11 +100,12 @@ const SignUp = () => {
                 className="h-[48px] w-full rounded-full bg-white pl-[60px] focus:outline-none focus:ring-1 focus:ring-black max-sm:placeholder:text-[14px]"
               />
             </div>
-            {errors.password && (
+            {errors.confirmPassword && (
               <p className="pb-2 pl-5 leading-[1px] text-red-500">
-                {errors.password.message}
+                {errors.confirmPassword.message}
               </p>
             )}
+
             <Button type="submit">Sign up</Button>
           </form>
         </div>

@@ -10,7 +10,7 @@ const TopBar = () => {
 
   ////LOGIC
   const handleSignUpClick = useCallback(() => {
-    navigate("/login");
+    navigate("/register");
     setHideBar(true);
   }, [navigate]);
 

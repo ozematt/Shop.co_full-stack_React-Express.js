@@ -1,28 +1,41 @@
-import { AUTHORIZATION } from "../constants";
+import { AUTH_BASE } from "../constants";
 
-const userLogin = async (userData: { username: string; password: string }) => {
+const authenticate = async (
+  auth: string,
+  username: string,
+  password: string,
+) => {
   try {
-    const response = await fetch(AUTHORIZATION, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      AUTH_BASE + (auth === "register" ? "/register" : "/login"),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
       },
-      body: JSON.stringify({
-        username: userData.username,
-        password: userData.password,
-      }),
-    });
+    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData?.message || "Login failed");
+    if (!response) {
+      throw new Error("Network response not ok");
     }
+
     const result = await response.json();
-    return result;
+    console.log(result);
+    if (result.token) {
+      localStorage.setItem("token", result.token);
+    } else {
+      throw Error("❌ Failed to authenticate...");
+    }
+    return result.token;
   } catch (error: any) {
-    console.error("Error during login:", error.message);
+    console.error("There has been a problem with fetch:", error);
     throw error;
   }
 };
 
-export default userLogin;
+export default authenticate;
