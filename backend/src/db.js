@@ -21,7 +21,7 @@ const connectToDatabase = async () => {
 
       console.log("MySQL Connection Success 👍 👍");
 
-      break; // Po udanym połączeniu, wychodzimy z pętli
+      break; // After a successful connection, we exit the loop
     } catch (error) {
       console.log("Database Connection Error, retrying...");
       console.log(error);
@@ -29,7 +29,7 @@ const connectToDatabase = async () => {
       if (retries === 0) {
         throw new Error("MySQL Connection failed after several attempts.");
       }
-      await new Promise((res) => setTimeout(res, 5000)); // Czekaj 5 sekund przed kolejną próbą
+      await new Promise((res) => setTimeout(res, 5000)); // Wait 5 seconds before trying again
     }
   }
 };

@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { poolPromise } from "../config/db.js";
+import { poolPromise } from "../db.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -47,18 +47,17 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    const passwordIsValid = bcrypt.compareSync(password, result.password);
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
     // if the password does not match, return out of the function
     if (!passwordIsValid) {
       return res.status(401).send({ message: "Invalid password" });
     }
-    // console.log();
+    console.log(user);
     // then we have a successful authentication
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
     res.json({ token });
-    // res.sendStatus(200);
   } catch (err) {
     console.log(err.message);
     res.sendStatus(503);
