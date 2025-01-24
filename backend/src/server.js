@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import { connectToDatabase } from "./db.js";
+import { errorHandler } from "./utils/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 
 import dotenv from "dotenv";
-import { errorHandler } from "./utils/errorHandler.js";
+
 dotenv.config();
 
 const app = express();

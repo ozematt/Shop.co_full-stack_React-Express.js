@@ -8,6 +8,7 @@ import {
   Cart,
   MyAccount,
   Checkout,
+  SignUp,
 } from "./components";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shop/:category" element={<Shop />} />
           <Route path="/shop/:category/:product" element={<ProductDetails />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/register" element={<SignUp />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="/account/:userName" element={<MyAccount />} />

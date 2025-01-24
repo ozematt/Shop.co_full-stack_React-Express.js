@@ -31,8 +31,10 @@ import Success from "./Success";
 import SearchEngine from "./SearchEngine";
 import SearchEngineIcon from "./SearchEngineIcon";
 import ProductsList from "./ProductsList";
+import SignUp from "./SignUp";
 
 export {
+  SignUp,
   ProductsList,
   SearchEngine,
   SearchEngineIcon,

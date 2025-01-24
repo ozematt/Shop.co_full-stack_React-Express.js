@@ -98,6 +98,24 @@ export type InputProps = {
   placeholder: string;
 };
 
+//// SIGNUP TYPES
+export const signUpSchema = z
+  .object({
+    username: z.string().email({ message: "Invalid email" }),
+    password: z
+      .string()
+      .min(6, { message: "Must be at last 6 characters long" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Must be at last 6 characters long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
+  });
+
+export type SignUpSchema = z.infer<typeof signUpSchema>;
+
 ////LOGIN TYPES
 export const loginSchema = z.object({
   username: z
