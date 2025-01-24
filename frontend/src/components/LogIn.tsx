@@ -101,7 +101,15 @@ const LogIn = () => {
                 {errors.password.message}
               </p>
             )}
-            <Button type="submit">Sign up</Button>
+            <div className="flex justify-between space-x-2">
+              <Button type="submit">Login</Button>
+              <button
+                onClick={() => navigate("/register")}
+                className="mt-6 w-full rounded-full px-[50px] py-[15px] text-black opacity-30 ring-1 ring-black transition duration-100 ease-in-out hover:scale-95 hover:opacity-100 sm:mt-[32px] dark:text-white dark:ring-white"
+              >
+                Register
+              </button>
+            </div>
           </form>
         </div>
       </section>

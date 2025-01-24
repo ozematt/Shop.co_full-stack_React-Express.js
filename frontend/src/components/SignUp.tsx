@@ -37,7 +37,7 @@ const SignUp = () => {
       <section className="max-container bg-grayBG px-4 sm:px-[100px]">
         <div className="mx-auto flex w-full max-w-[400px] flex-col">
           <h2 className="pt-[60px] font-integralCFBold text-[32px] max-sm:leading-9 sm:pt-[100px] sm:text-5xl">
-            Let's just Sign Up!
+            Let's just <br /> Sign Up!
           </h2>
 
           <form
