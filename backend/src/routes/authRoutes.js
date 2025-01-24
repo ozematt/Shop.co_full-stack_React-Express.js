@@ -18,13 +18,12 @@ router.post("/register", async (req, res) => {
   try {
     const [results] = await poolPromise.query(
       `INSERT INTO users (username, password) VALUES (?, ?)`,
-      [username, hashedPassword],
+      [username, hashedPassword]
     );
     // create a token
     const token = jwt.sign({ id: results.insertId }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
-    // res.send({ message: "OKOKK" });
     res.json({ token });
   } catch (err) {
     console.log(err.message);
@@ -41,7 +40,7 @@ router.post("/login", async (req, res) => {
       SELECT *
       FROM users
       WHERE username = ?`,
-      [username],
+      [username]
     );
     const user = rows[0];
     // if we cannot find a user associated with that username, return out of the function
