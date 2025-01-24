@@ -15,16 +15,16 @@ const pool = mysql.createPool({
 const poolPromise = pool.promise();
 
 const connectToDatabase = async () => {
-  let retries = 5;
+  let retries = 3;
   while (retries) {
     try {
       await poolPromise.getConnection();
 
       console.log("MySQL Connection Success 👍 👍");
 
-      await createTable(usersTable);
-      await createTable(ordersTable);
-      await createTable(orderItemTable);
+      // await createTable(usersTable);
+      // await createTable(ordersTable);
+      // await createTable(orderItemTable);
 
       break; // Po udanym połączeniu, wychodzimy z pętli
     } catch (error) {

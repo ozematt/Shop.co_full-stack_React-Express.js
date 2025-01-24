@@ -1,5 +1,36 @@
 services:
- backend:
+  mysql:
+    image: mysql:8.0 # Wykorzystuje najnowszy obraz MySQL
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root # Hasło do użytkownika root
+      MYSQL_DATABASE: shop_co_db # Nazwa bazy danych do stworzenia przy starcie
+      MYSQL_USER: user # Nazwa użytkownika
+      MYSQL_PASSWORD: userpass # Hasło dla użytkownika
+    ports:
+      - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
+    volumes:
+      - mysql-data:/var/lib/mysql # Użycie wolumenu do przechowywania danych
+    networks:
+      - app-network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "user",
+          "-puserpass",
+        ]
+      interval: 10s # Sprawdzaj co 10 sekund
+      timeout: 5s # Maksymalny czas oczekiwania na odpowiedź
+      retries: 3 # Ilość prób przed uznaniem, że kontener jest "niezdrowy"
+      start_period: 30s # Poczekaj 30 sekund przed uruchomieniem healthcheck (ważne dla wolniejszych baz danych)
+
+  backend:
     build: ./backend
     container_name: shop-co-backend
     environment:
@@ -14,12 +45,13 @@ services:
     ports:
       - "3005:3005" # Mapowanie portów dla aplikacji Node.js
     depends_on:
-      - mysql # Backend będzie zależny od kontenera z MySQL
+      mysql:
+        condition: service_healthy # Poczekaj, aż MySQL przejdzie testy healthcheck
     volumes:
       - ./backend:/app
       - /app/node_modules
     networks:
-      - app-network # Używa tej samej sieci, co MySQL
+      - app-network
 
   frontend:
     build:
@@ -35,21 +67,6 @@ services:
     networks:
       - app-network
     command: npm run dev # Launches Vite development server
-
-  mysql:
-    image: mysql:8.0 # Wykorzystuje najnowszy obraz MySQL
-    container_name: mysql-db
-    environment:
-      MYSQL_ROOT_PASSWORD: root # Hasło do użytkownika root
-      MYSQL_DATABASE: shop_co_db # Nazwa bazy danych do stworzenia przy starcie
-      MYSQL_USER: user # Nazwa użytkownika
-      MYSQL_PASSWORD: userpass # Hasło dla użytkownika
-    ports:
-      - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
-    volumes:
-      - mysql-data:/var/lib/mysql # Użycie wolumenu do przechowywania danych
-    networks:
-      - app-network
 
 volumes:
   mysql-data: # Definicja wolumenu do przechowywania danych MySQL
