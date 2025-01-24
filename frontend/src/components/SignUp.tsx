@@ -8,6 +8,7 @@ import { type SignUpSchema, signUpSchema } from "../lib/types";
 import authenticate from "../api/queries/authorization";
 import { AppDispatch, useAppDispatch } from "../redux/store";
 import { logUser } from "../redux/userSlice";
+import { getUserName } from "../lib/helpers/getUserNameFromEmail";
 
 const SignUp = () => {
   //
@@ -24,10 +25,10 @@ const SignUp = () => {
 
   //handle submit form data
   const onSubmit = async (data: SignUpSchema) => {
-    console.log(data);
-
     await authenticate("register", data.username, data.password);
-    dispatch(logUser(data.username));
+
+    const username = getUserName(data.username); //make username out of email
+    dispatch(logUser(username));
     navigate("/shop");
   };
 

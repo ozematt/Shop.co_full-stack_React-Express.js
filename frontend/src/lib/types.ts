@@ -46,11 +46,11 @@ export const cartLocalStorageSchema = z.object({
   total: z.number(),
 });
 
-// export const userLocalStorageSchema = z.object({
-//   id: z.number(),
-//   username: z.string(),
-// });
-// export type UserLocalStorage = z.infer<typeof userLocalStorageSchema>;
+export const userLocalStorageSchema = z.object({
+  id: z.number(),
+  username: z.string(),
+});
+export type UserLocalStorage = z.infer<typeof userLocalStorageSchema>;
 
 //// COMMENT TYPES
 export type CommentProps = {
