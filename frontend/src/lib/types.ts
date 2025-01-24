@@ -124,7 +124,8 @@ export const loginSchema = z.object({
       invalid_type_error: "Name must be a string",
     })
     .min(3, { message: "Must be 3 or more characters long" })
-    .regex(/^[a-zA-Z]+$/, { message: "Name must contain only letters" }),
+    .email({ message: "Invalid email" }),
+
   password: z.string().min(5, { message: "Password is required" }),
 });
 

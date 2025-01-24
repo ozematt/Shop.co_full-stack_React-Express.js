@@ -3,20 +3,18 @@ import { userIcon } from "../assets";
 import { usePanelOpen } from "../lib/hooks";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { getUserName } from "../lib/helpers/getUserNameFromEmail";
+import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
+import { logOutUser } from "../redux/userSlice";
 
 const UserIcon = () => {
   //
   ////DATA
   const panelRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useAppDispatch();
 
   const auth = useSelector((state: RootState) => state.user.username);
-  console.log(auth);
 
-  let username;
-  if (auth) return (username = getUserName(auth));
   //custom hook
   const { open, setOpen } = usePanelOpen({ refValue: panelRef });
 
@@ -30,7 +28,7 @@ const UserIcon = () => {
   }, [auth, navigate]);
 
   const handleLogOut = useCallback(() => {
-    localStorage.removeItem("user");
+    dispatch(logOutUser());
     setOpen(false);
   }, []);
 

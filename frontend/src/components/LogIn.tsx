@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../api/queries";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,11 +6,16 @@ import { Footer, Newsletter } from "../sections";
 import { Button } from "./";
 import { user, lock } from "../assets";
 import { type LoginSchema, loginSchema } from "../lib/types";
+import authenticate from "../api/queries/authorization";
+import { getUserName } from "../lib/helpers/getUserNameFromEmail";
+import { AppDispatch, useAppDispatch } from "../redux/store";
+import { logUser } from "../redux/userSlice";
 
 const LogIn = () => {
   //
   ////DATA
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -23,29 +27,35 @@ const LogIn = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  ////LOGIC
   //handling responses from the server
-  // const mutation = useMutation({
-  //   mutationFn: userLogin,
-  //   onError: () => {
-  //     setError("username", {
-  //       type: "custom",
-  //       message: "User does not exist",
-  //     });
-  //   },
-  //   onSuccess: (data) => {
-  //     () => clearErrors(["username"]);
-  //     reset(); //form fields reset
+  const mutation = useMutation({
+    mutationFn: authenticate,
+    onError: () => {
+      setError("username", {
+        type: "custom",
+        message: "User does not exist",
+      });
+    },
+    onSuccess: (data) => {
+      clearErrors(["username"]);
+      reset(); //form fields reset
 
-  //     const user = { username: data.username, id: data.id };
-  //     localStorage.setItem("user", JSON.stringify(user)); // add user to local storage
-  //     navigate("/shop");
-  //   },
-  // });
+      navigate("/shop");
+    },
+  });
 
-  // //handle submit form data
-  // const onSubmit = (data: LoginSchema) => {
-  //   mutation.mutate(data);
-  // };
+  //handle submit form data
+  const onSubmit = (data: LoginSchema) => {
+    const dataToSend = {
+      auth: "login",
+      username: data.username,
+      password: data.password,
+    };
+    mutation.mutate(dataToSend);
+    const username = getUserName(data.username); //make username out of email
+    dispatch(logUser(username));
+  };
 
   ////UI
   return (
@@ -57,7 +67,7 @@ const LogIn = () => {
           </h2>
 
           <form
-            // onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="w-full max-w-[400px] space-y-4 pb-9 pt-8 sm:pb-[80px]"
           >
             <div className="relative w-full">

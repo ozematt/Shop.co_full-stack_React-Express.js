@@ -1,10 +1,12 @@
 import { AUTH_BASE } from "../constants";
 
-const authenticate = async (
-  auth: string,
-  username: string,
-  password: string,
-) => {
+type Authenticate = {
+  auth: string;
+  username: string;
+  password: string;
+};
+
+const authenticate = async ({ auth, username, password }: Authenticate) => {
   try {
     const response = await fetch(
       AUTH_BASE + (auth === "register" ? "/register" : "/login"),
@@ -14,26 +16,28 @@ const authenticate = async (
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
+          username,
+          password,
         }),
       },
     );
 
-    if (!response) {
-      throw new Error("Network response not ok");
+    if (!response.ok) {
+      // If the response is not OK, we throw an exception
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Network response not ok");
     }
 
     const result = await response.json();
-    console.log(result);
+
     if (result.token) {
       localStorage.setItem("token", result.token);
+      return result;
     } else {
-      throw Error("❌ Failed to authenticate...");
+      throw Error("Authentication failed: token not provided by the server.");
     }
-    return result.token;
   } catch (error: any) {
-    console.error("There has been a problem with fetch:", error);
+    console.error("There has been a problem with fetch:", error.message);
     throw error;
   }
 };

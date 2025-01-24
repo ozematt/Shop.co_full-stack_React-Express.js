@@ -9,6 +9,7 @@ import authenticate from "../api/queries/authorization";
 import { AppDispatch, useAppDispatch } from "../redux/store";
 import { logUser } from "../redux/userSlice";
 import { getUserName } from "../lib/helpers/getUserNameFromEmail";
+import { useMutation } from "@tanstack/react-query";
 
 const SignUp = () => {
   //
@@ -19,17 +20,41 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
+    reset,
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
 
-  //handle submit form data
-  const onSubmit = async (data: SignUpSchema) => {
-    await authenticate("register", data.username, data.password);
+  const mutation = useMutation({
+    mutationFn: authenticate,
+    onError: () => {
+      setError("username", {
+        type: "custom",
+        message: "User already exist",
+      });
+    },
+    onSuccess: (data) => {
+      clearErrors(["username"]);
+      reset(); //form fields reset
 
-    const username = getUserName(data.username); //make username out of email
-    dispatch(logUser(username));
-    navigate("/shop");
+      const username = getUserName(data.username); //make username out of email
+      dispatch(logUser(username));
+      console.log(username);
+
+      navigate("/shop");
+    },
+  });
+
+  //handle submit form data
+  const onSubmit = (data: SignUpSchema) => {
+    const dataToSend = {
+      auth: "register",
+      username: data.username,
+      password: data.password,
+    };
+    mutation.mutate(dataToSend);
   };
 
   ////UI
