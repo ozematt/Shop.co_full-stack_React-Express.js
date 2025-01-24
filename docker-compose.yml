@@ -11,6 +11,7 @@ services:
       - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
     volumes:
       - mysql-data:/var/lib/mysql # Użycie wolumenu do przechowywania danych
+      - ./db/init:/docker-entrypoint-initdb.d
     networks:
       - app-network
     healthcheck:

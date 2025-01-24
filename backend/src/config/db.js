@@ -1,6 +1,4 @@
 import mysql from "mysql2";
-import { createTable } from "../utils/helperFunction.js";
-import { orderItemTable, ordersTable, usersTable } from "./query.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,16 +13,13 @@ const pool = mysql.createPool({
 const poolPromise = pool.promise();
 
 const connectToDatabase = async () => {
-  let retries = 3;
+  let retries = 2;
+
   while (retries) {
     try {
       await poolPromise.getConnection();
 
       console.log("MySQL Connection Success 👍 👍");
-
-      // await createTable(usersTable);
-      // await createTable(ordersTable);
-      // await createTable(orderItemTable);
 
       break; // Po udanym połączeniu, wychodzimy z pętli
     } catch (error) {
