@@ -8,19 +8,16 @@ type Authenticate = {
 
 const authenticate = async ({ auth, username, password }: Authenticate) => {
   try {
-    const response = await fetch(
-      AUTH_BASE + (auth === "register" ? "/register" : "/login"),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+    const response = await fetch(AUTH_BASE + "/" + auth, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
 
     if (!response.ok) {
       // If the response is not OK, we throw an exception
