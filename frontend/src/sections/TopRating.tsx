@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   type Product as ProductT,
   type ProductsFetchedData,
-} from "../api/queries/products";
+} from "../lib/types";
 import { fetchProducts } from "../api/queries";
 import { useEffect, useState } from "react";
 import { Product } from "../components";

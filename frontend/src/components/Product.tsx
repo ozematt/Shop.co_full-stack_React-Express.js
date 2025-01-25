@@ -5,6 +5,7 @@ import { type ProductProps } from "../lib/types";
 
 const Product = ({
   id,
+  thumbnail,
   title,
   price,
   rating,
@@ -26,7 +27,7 @@ const Product = ({
     >
       <div className="h-[304px] w-full rounded-[20px] bg-grayBG sm:h-[298px] sm:w-[295px] dark:bg-zinc-900">
         <img
-          src={images[0]}
+          src={thumbnail}
           alt={title}
           className="h-full w-full object-contain"
         />

@@ -39,8 +39,8 @@ const Nav = () => {
         <HamburgerMenu />
         {/* Logo */}
         <a
-          href="/"
-          className="mb-[7px] font-integralCFBold text-[25px] sm:text-[32px] dark:text-white"
+          onClick={() => navigate("/")}
+          className="mb-[7px] cursor-pointer font-integralCFBold text-[25px] hover:opacity-90 sm:text-[32px] dark:text-white"
         >
           shop.co
         </a>
