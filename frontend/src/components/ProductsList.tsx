@@ -4,15 +4,14 @@ import { Product } from ".";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { useLocation, matchPath } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { addCategorizedProducts, addProducts } from "../redux/productsSlice";
 import { usePagedItems } from "../lib/hooks";
-import { type ProductsFetchedData } from "../lib/types";
 
 const ProductsList = () => {
   //
   ////DATA
-  const { data: products } = useQuery<ProductsFetchedData>({
+  const { data: products } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
@@ -62,7 +61,9 @@ const ProductsList = () => {
   }, [filteredProductsByCategory, fetchedProducts]);
 
   //sorting products based on sortOption from global state
-  const sortedProducts = useCallback(() => {
+  const sortedProducts = useMemo(() => {
+    if (!productsData?.products) return [];
+
     const { field, direction } = sortOptions;
 
     const productsCopy = [...productsData.products];
@@ -81,19 +82,17 @@ const ProductsList = () => {
 
     // sorting products
     return productsCopy.sort(compareFn);
-  }, [sortOptions]);
+  }, [sortOptions, productsData]);
 
   ////UI
-  return sortedProducts()
-    ?.slice(firstIndex, secondIndex)
-    .map((product) => (
-      <div
-        key={product.id}
-        className="m-0 scale-100 max-lg:m-[-20px] max-lg:scale-90 max-md:m-[-50px] max-md:scale-[0.7]"
-      >
-        <Product {...product} />
-      </div>
-    ));
+  return sortedProducts?.slice(firstIndex, secondIndex).map((product) => (
+    <div
+      key={product.id}
+      className="m-0 scale-100 max-lg:m-[-20px] max-lg:scale-90 max-md:m-[-50px] max-md:scale-[0.7]"
+    >
+      <Product {...product} />
+    </div>
+  ));
 };
 
 export default ProductsList;

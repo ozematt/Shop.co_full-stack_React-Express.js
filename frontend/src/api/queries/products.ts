@@ -4,7 +4,7 @@ import {
 } from "../../lib/types";
 import { PRODUCTS } from "../constants";
 
-const fetchProducts = async () => {
+const fetchProducts = async (): Promise<ProductsFetchedData> => {
   try {
     const response = await fetch(
       `${PRODUCTS}?limit=0&&select=id,title,price,rating,category,images,thumbnail,discountPercentage,weight,stock,dimensions,warrantyInformation,shippingInformation,reviews,brand,description,`,
