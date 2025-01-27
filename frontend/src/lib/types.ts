@@ -20,6 +20,20 @@ export const orderDataSchema = z.object({
   items: z.array(itemSchema),
 });
 
+const itemsSchema = z.object({
+  title: z.string(),
+  image: z.string().url(),
+  price: z.number(),
+  quantity: z.number(),
+});
+export const ordersSchema = z.object({
+  orderId: z.number(),
+  total: z.number(),
+  date: z.string(),
+  items: z.array(itemsSchema),
+});
+
+export type OrdersT = z.infer<typeof ordersSchema>;
 export type OrderData = z.infer<typeof orderDataSchema>;
 
 const cartRecord = z.object({

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS orders (
     user_id INT,
     order_item_id INT,
     total DECIMAL(10, 2),
+    date DATE,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

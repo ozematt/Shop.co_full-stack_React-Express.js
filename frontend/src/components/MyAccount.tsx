@@ -2,10 +2,12 @@ import { Footer, Newsletter } from "../sections";
 import { user } from "../assets/index";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import getUser from "../api/queries/username";
 import { setUsername } from "../redux/userSlice";
 import { getUsername } from "../lib/helpers";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import getOrder from "../api/queries/getOrders";
 
 const MyAccount = () => {
   //
@@ -29,6 +31,17 @@ const MyAccount = () => {
     };
     fetchUser();
   }, [username]);
+
+  const {
+    data: orders,
+    isSuccess,
+    isError,
+  } = useSuspenseQuery({
+    queryKey: ["orders"],
+    queryFn: getOrder,
+  });
+
+  console.log(orders);
 
   ////LOGIC
   // useEffect(() => {
@@ -67,14 +80,14 @@ const MyAccount = () => {
           </h6>
           <div className="border-b-[1px] py-2" />
 
-          {/* {orders.map((order) => (
-            <div key={order.id} className="my-1">
+          {orders.map((order) => (
+            <div key={order.orderId} className="my-1">
               <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
                 Date: {order.date}
               </p>
               {order.items.map((item) => (
-                <Fragment key={item.id}>
-                  <div key={item.id} className="my-1 flex">
+                <Fragment key={item.title}>
+                  <div className="my-1 flex">
                     <img
                       src={item.image}
                       alt="product image"
@@ -95,13 +108,12 @@ const MyAccount = () => {
                   <div className="my-4 mr-[70px] border-b-[1px] md:my-6 md:mr-[150px] dark:opacity-30" />
                 </Fragment>
               ))}
-
               <p className="mt-[-10px] font-satoshi text-xl font-bold md:text-2xl">
                 Total: {order.total}$
               </p>
               <div className="border-b-[1px] py-2" />
             </div>
-          ))} */}
+          ))}
         </div>
       </section>{" "}
       <div className="max-container">

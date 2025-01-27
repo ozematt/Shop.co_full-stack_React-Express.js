@@ -12,29 +12,43 @@ router.get("/orders", async (req, res) => {
   const userId = req.userId;
 
   try {
-    const [rows] = await poolPromise.query(
+    const [orders] = await poolPromise.query(
       `
       SELECT * FROM orders WHERE user_id = ?
       `,
       [userId]
     );
-    const orderId = rows[0].id;
+    // const orderId = orders[0].id;
 
-    if (!(rows.length > 0)) {
+    if (orders.length === 0) {
       return res.json({ message: "User has 0 orders" });
     }
 
-    const [results] = await poolPromise.query(
-      `
-    SELECT * FROM order_items WHERE order_id = ?
-    `,
-      [orderId]
+    const ordersWithItems = await Promise.all(
+      orders.map(async (order) => {
+        const [items] = await poolPromise.query(
+          `
+          SELECT title, quantity, price, image
+          FROM order_items
+          WHERE order_id = ?
+          `,
+          [order.id]
+        );
+
+        return {
+          orderId: order.id,
+          total: order.total,
+          date: order.date,
+          items: items, // Produkty dla tego zamówienia
+        };
+      })
     );
 
-    res.json(results);
+    // Zwróć całą historię zamówień jako tablicę
+    res.json(ordersWithItems);
   } catch (error) {
-    console.log(err.message);
-    res.sendStatus(503);
+    console.error("Error while downloading orders:", error);
+    res.status(500).json({ message: "A server error occurred" });
   }
 });
 
