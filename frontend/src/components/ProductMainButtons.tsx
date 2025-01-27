@@ -28,11 +28,11 @@ const ProductMainButtons = ({
     handleQuantityDecrement,
   } = useQuantity({ stock });
 
-  const auth = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
 
   //handle data send to cart
   const handleAddToCart = useCallback(() => {
-    if (auth) {
+    if (token) {
       const newPrice = Number((price * quantity).toFixed(2));
       const modifiedProductData = {
         id: id,
@@ -53,7 +53,7 @@ const ProductMainButtons = ({
   }, [
     navigate,
     dispatch,
-    auth,
+    token,
     id,
     title,
     images,

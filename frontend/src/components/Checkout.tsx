@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { format } from "date-fns";
 import { clearCart } from "../redux/cartSlice";
-import { useUserData } from "../lib/hooks";
+// import { useUserData } from "../lib/hooks";
 import {
   type OrderData,
   cartLocalStorageSchema,
@@ -28,7 +28,7 @@ const Checkout = () => {
 
   const [order, setOrder] = useState<OrderData | null>(null);
   const [success, setSuccess] = useState(false);
-  const { userData } = useUserData(); // fetched user data
+  // const { userData } = useUserData(); // fetched user data
 
   ////LOGIC
   //creating order data out of local storage data, with validation
@@ -106,26 +106,28 @@ const Checkout = () => {
                 <div className="border-b-[1px] pt-5" />
                 {/* Address */}
                 <div className="mt-4 space-y-1 font-satoshi text-sm">
-                  <p className="pb-1 text-xl font-bold">{` ${userData?.firstName}  ${userData?.lastName}`}</p>
+                  <p className="pb-1 text-xl font-bold">
+                    User data will be here.
+                  </p>
                   <p>
                     <span className="font-medium">City:</span>{" "}
-                    {userData?.address?.city}
+                    {/* {userData?.address?.city} */}
                   </p>
                   <p>
                     <span className="font-medium">Address:</span>{" "}
-                    {userData?.address?.address}
+                    {/* {userData?.address?.address} */}
                   </p>
                   <p>
                     <span className="font-medium">Postal Code:</span>{" "}
-                    {userData?.address?.postalCode}
+                    {/* {userData?.address?.postalCode} */}
                   </p>
                   <p>
                     <span className="font-medium">Country:</span>{" "}
-                    {userData?.address?.country}
+                    {/* {userData?.address?.country} */}
                   </p>
                   <p>
                     <span className="font-medium">State:</span>{" "}
-                    {userData?.address?.state}
+                    {/* {userData?.address?.state} */}
                   </p>
                 </div>
               </div>
