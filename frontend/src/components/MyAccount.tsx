@@ -1,14 +1,34 @@
 import { Footer, Newsletter } from "../sections";
 import { user } from "../assets/index";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
+import { useEffect } from "react";
+import getUser from "../api/queries/username";
+import { setUsername } from "../redux/userSlice";
+import { getUsername } from "../lib/helpers";
 
 const MyAccount = () => {
   //
   ////DATA
+  const dispatch: AppDispatch = useAppDispatch();
+
   const username = useSelector((state: RootState) => state.user.username);
   // const [orders, setOrders] = useState<Orders>([]);
   // const { userData } = useUserData();
+
+  // set username to redux
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userEmail = await getUser();
+        const username = getUsername(userEmail);
+        dispatch(setUsername(username));
+      } catch (error: any) {
+        console.error("Failed to fetch user:", error.message);
+      }
+    };
+    fetchUser();
+  }, [username]);
 
   ////LOGIC
   // useEffect(() => {

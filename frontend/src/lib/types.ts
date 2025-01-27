@@ -17,8 +17,6 @@ const itemSchema = z.object({
 });
 
 export const orderDataSchema = z.object({
-  id: z.string(),
-  date: z.string(),
   total: z.number(),
   items: z.array(itemSchema),
 });

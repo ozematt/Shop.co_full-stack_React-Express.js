@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Footer, Newsletter } from "../sections";
 import { Breadcrumbs, Success } from "./";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { clearCart } from "../redux/cartSlice";
 // import { useUserData } from "../lib/hooks";
 import {
@@ -16,12 +16,12 @@ const Checkout = () => {
   //
   ////DATA
   // date-fns
-  const formatDate = () => {
-    const today = new Date();
-    return format(today, "dd.MM.yyyy");
-  };
+  // const formatDate = () => {
+  //   const today = new Date();
+  //   return format(today, "dd.MM.yyyy");
+  // };
   // unique id
-  const orderId = useId();
+  // const orderId = useId();
 
   const dispatch: AppDispatch = useAppDispatch();
   const total = useSelector((state: RootState) => state.cart.total); //total price (included discount)
@@ -42,7 +42,7 @@ const Checkout = () => {
 
       // creating order object
       const order: OrderData = {
-        id: orderId,
+        // id: orderId,
         items: itemsArray.map((item: CartItemT) => ({
           id: item.id,
           title: item.title,
@@ -50,7 +50,7 @@ const Checkout = () => {
           price: item.price,
           quantity: item.quantity,
         })),
-        date: formatDate(),
+        // date: formatDate(),
         total: parsedCart.data.total,
       };
 

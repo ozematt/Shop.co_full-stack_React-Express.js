@@ -13,6 +13,7 @@ const UserIcon = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useAppDispatch();
 
+  const token = localStorage.getItem("token");
   const username = useSelector((state: RootState) => state.user.username);
 
   //custom hook
@@ -20,12 +21,12 @@ const UserIcon = () => {
 
   ////LOGIC
   const handleUserPanel = useCallback(() => {
-    if (!username) {
+    if (!token) {
       navigate("/login");
       return;
     }
     setOpen((prevState) => !prevState);
-  }, [username, navigate]);
+  }, [token, navigate]);
 
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser());
@@ -48,7 +49,10 @@ const UserIcon = () => {
         <ul className="absolute right-[-5px] top-[50px] z-50 w-[130px] rounded-[5px] bg-white bg-opacity-90 pl-3 pt-1 ring-1 ring-black ring-opacity-20 dark:text-black">
           <li
             className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100"
-            onClick={() => navigate(`account/${username}`)}
+            onClick={() => {
+              navigate(`account/${username}`);
+              setOpen(false);
+            }}
           >
             My Account
           </li>

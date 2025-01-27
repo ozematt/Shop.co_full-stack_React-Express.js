@@ -4,6 +4,7 @@ import { connectToDatabase } from "./db.js";
 import { errorHandler } from "./utils/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 import dotenv from "dotenv";
 import authMiddleware from "./middleware/authMiddleware.js";
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", authRoutes);
 app.use("/api", authMiddleware, ordersRoutes);
+app.use("/api", authMiddleware, userRoutes);
 
 app.use(errorHandler); //middleware for handling errors
 
