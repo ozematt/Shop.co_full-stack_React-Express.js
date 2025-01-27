@@ -3,9 +3,7 @@ import { Footer, Newsletter } from "../sections";
 import { Breadcrumbs, Success } from "./";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
-// import { format } from "date-fns";
 import { clearCart } from "../redux/cartSlice";
-// import { useUserData } from "../lib/hooks";
 import {
   type OrderData,
   cartLocalStorageSchema,
@@ -17,7 +15,6 @@ import addOrder from "../api/queries/addOrder";
 const Checkout = () => {
   //
   ////DATA
-
   const dispatch: AppDispatch = useAppDispatch();
   const total = useSelector((state: RootState) => state.cart.total); //total price (included discount)
 
