@@ -7,7 +7,7 @@ dotenv.config();
 
 const router = express.Router();
 
-// Get all orders history
+// Get all user orders history
 router.get("/orders", async (req, res) => {
   const userId = req.userId;
 
@@ -36,7 +36,6 @@ router.get("/orders", async (req, res) => {
     console.log(err.message);
     res.sendStatus(503);
   }
-  // res.json({ message: "działa" });
 });
 
 // Save new order in orders history
@@ -44,18 +43,18 @@ router.post("/orders", async (req, res) => {
   const { items, total } = req.body;
   const userId = req.userId;
 
-  const connection = await poolPromise.getConnection(); // Pobieranie połączenia
+  const connection = await poolPromise.getConnection(); // Downloading connection
   try {
-    await connection.beginTransaction(); // Rozpoczęcie transakcji
+    await connection.beginTransaction(); // Starting the transaction
 
-    // Wstawienie zamówienia
+    // Inserting an order
     const [results] = await connection.query(
       `INSERT INTO orders (user_id, total) VALUES (?, ?)`,
       [userId, total]
     );
     const orderId = results.insertId;
 
-    // Przygotowanie danych do masowego wstawiania
+    // Preparing data for mass insertion into the `order_item` table
     const orderItems = items.map((item) => [
       orderId,
       item.title,
@@ -63,65 +62,27 @@ router.post("/orders", async (req, res) => {
       item.price,
       item.quantity,
     ]);
+
+    // Inserting multiple items into the `order_item` table
     const placeholders = items.map(() => `(?,?,?,?,?)`).join(",");
     const query = `
       INSERT INTO order_items ( order_id, title, image, price, quantity)
       VALUES ${placeholders}
     `;
-    const flatOrderItems = orderItems.flat();
+    const flatOrderItems = orderItems.flat(); // Flattening an array (SQL requires one dimension)
     await connection.query(query, flatOrderItems);
 
-    // Zatwierdzenie transakcji
+    // Transaction approval
     await connection.commit();
 
     res.json({ message: "Order successfully added", orderId });
   } catch (error) {
-    await connection.rollback(); // Cofnięcie zmian w razie błędu
+    await connection.rollback(); // Rollback in case of error
     console.error("Error saving order:", error.message);
     res.status(500).json({ error: "Failed to save order" });
   } finally {
-    connection.release(); // Zwrócenie połączenia do puli
+    connection.release(); // Returning the connection to the pool
   }
 });
-// router.post("/orders", async (req, res) => {
-//   const { items, total } = req.body;
-//   const userId = req.userId;
-//   // res.json(items);
-//     try {
-//       const [results] = await poolPromise.query(
-//         `
-//   INSERT INTO orders (user_id, total) VALUES (?, ?)
-//   `,
-//         [userId, total]
-//       );
-//       const orderId = results.insertId;
-
-//       // Preparing data for mass insertion into the `order_item` table
-//       const orderItems = items.map((item) => [
-//         userId,
-//         orderId,
-//         item.title,
-//         item.image,
-//         item.price,
-//         item.quantity,
-//       ]);
-
-//       // Inserting multiple items into the `order_item` table
-//       const placeholders = items.map(() => `(?,?,?,?,?,?)`).join(",");
-
-//       const query = `
-//       INSERT INTO order_item (user_id, order_id, title, image, price, quantity)
-//       VALUES ${placeholders}
-//     `;
-
-//       const flatOrderItems = orderItems.flat(); // Flattening an array (SQL requires one dimension)
-//       await poolPromise.query(query, flatOrderItems);
-
-//       res.json({ message: "Order successfully added", orderId });
-//     } catch (error) {
-//       console.error("Error saving order:", error.message);
-//       res.status(500).json({ error: "Failed to save order" });
-//     }
-// });
 
 export default router;
