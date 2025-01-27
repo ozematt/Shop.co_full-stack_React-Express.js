@@ -5,7 +5,7 @@ const getUser = async () => {
 
   try {
     if (!token) {
-      throw new Error("No user logged in");
+      throw new Error("User is not logged in");
     }
 
     const response = await fetch(`${AUTH_BASE}/user`, {

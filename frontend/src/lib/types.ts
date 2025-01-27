@@ -9,7 +9,6 @@ export type ButtonProps = {
 
 //// CHECKOUT TYPES
 const itemSchema = z.object({
-  id: z.number(),
   title: z.string(),
   image: z.string().url(),
   price: z.number(),

@@ -20,7 +20,6 @@ const authenticate = async ({ auth, username, password }: Authenticate) => {
     });
 
     if (!response.ok) {
-      // If the response is not OK, we throw an exception
       const errorData = await response.json();
       throw new Error(errorData.message || "Network response not ok");
     }

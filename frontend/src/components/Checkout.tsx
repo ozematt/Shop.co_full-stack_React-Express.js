@@ -11,24 +11,18 @@ import {
   cartLocalStorageSchema,
   CartItemT,
 } from "../lib/types";
+import { useMutation } from "@tanstack/react-query";
+import addOrder from "../api/queries/addOrder";
 
 const Checkout = () => {
   //
   ////DATA
-  // date-fns
-  // const formatDate = () => {
-  //   const today = new Date();
-  //   return format(today, "dd.MM.yyyy");
-  // };
-  // unique id
-  // const orderId = useId();
 
   const dispatch: AppDispatch = useAppDispatch();
   const total = useSelector((state: RootState) => state.cart.total); //total price (included discount)
 
   const [order, setOrder] = useState<OrderData | null>(null);
   const [success, setSuccess] = useState(false);
-  // const { userData } = useUserData(); // fetched user data
 
   ////LOGIC
   //creating order data out of local storage data, with validation
@@ -42,15 +36,12 @@ const Checkout = () => {
 
       // creating order object
       const order: OrderData = {
-        // id: orderId,
         items: itemsArray.map((item: CartItemT) => ({
-          id: item.id,
           title: item.title,
           image: item.image,
           price: item.price,
           quantity: item.quantity,
         })),
-        // date: formatDate(),
         total: parsedCart.data.total,
       };
 
@@ -62,24 +53,21 @@ const Checkout = () => {
     }
   }, []);
 
-  const handleOrder = useCallback(() => {
-    try {
-      const ordersLocalStorage = localStorage.getItem("orders");
-
-      const orderData = ordersLocalStorage
-        ? JSON.parse(ordersLocalStorage)
-        : [];
-
-      const updatedOrders = [...orderData, order];
-
-      localStorage.setItem("orders", JSON.stringify(updatedOrders));
-
+  const orderMutate = useMutation({
+    mutationFn: addOrder,
+    onError: () => {
+      console.log("Error fest");
+      setSuccess(false);
+    },
+    onSuccess: (data) => {
       dispatch(clearCart());
       setSuccess(true);
-    } catch (error) {
-      console.error("Error handling the order:", error);
-      setSuccess(false);
-    }
+      console.log(data);
+    },
+  });
+
+  const handleOrder = useCallback(() => {
+    orderMutate.mutate(order as OrderData);
   }, [dispatch, order]);
 
   ////UI
