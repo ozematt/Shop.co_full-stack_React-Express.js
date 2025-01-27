@@ -14,6 +14,7 @@ const UserIcon = () => {
   const dispatch: AppDispatch = useAppDispatch();
 
   const auth = useSelector((state: RootState) => state.user.username);
+  console.log(auth);
 
   //custom hook
   const { open, setOpen } = usePanelOpen({ refValue: panelRef });

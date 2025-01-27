@@ -7,14 +7,15 @@ import { lock, email } from "../assets";
 import { type SignUpSchema, signUpSchema } from "../lib/types";
 import authenticate from "../api/queries/authorization";
 import { AppDispatch, useAppDispatch } from "../redux/store";
-import { logUser } from "../redux/userSlice";
-import { getUserName } from "../lib/helpers/getUserNameFromEmail";
 import { useMutation } from "@tanstack/react-query";
+import { getUsername } from "../lib/helpers";
+import { setUsername } from "../redux/userSlice";
 
 const SignUp = () => {
   //
   ////DATA
   const navigate = useNavigate();
+
   const dispatch: AppDispatch = useAppDispatch();
   const {
     register,
@@ -27,7 +28,7 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const mutation = useMutation({
+  const getAuth = useMutation({
     mutationFn: authenticate,
     onError: () => {
       setError("username", {
@@ -35,14 +36,12 @@ const SignUp = () => {
         message: "User already exist",
       });
     },
-    onSuccess: (data) => {
+    onSuccess: (data, variables) => {
       clearErrors(["username"]);
+      localStorage.setItem("token", data);
+      const user = getUsername(variables.username);
+      dispatch(setUsername(user));
       reset(); //form fields reset
-
-      const username = getUserName(data.username); //make username out of email
-      dispatch(logUser(username));
-      console.log(username);
-
       navigate("/shop");
     },
   });
@@ -54,7 +53,7 @@ const SignUp = () => {
       username: data.username,
       password: data.password,
     };
-    mutation.mutate(dataToSend);
+    getAuth.mutate(dataToSend);
   };
 
   ////UI

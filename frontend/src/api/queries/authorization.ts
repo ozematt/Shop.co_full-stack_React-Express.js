@@ -28,7 +28,6 @@ const authenticate = async ({ auth, username, password }: Authenticate) => {
     const result = await response.json();
 
     if (result.token) {
-      localStorage.setItem("token", result.token);
       return result;
     } else {
       throw Error("Authentication failed: token not provided by the server.");
