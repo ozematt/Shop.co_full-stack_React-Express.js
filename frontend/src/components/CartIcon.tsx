@@ -8,17 +8,17 @@ const CartIcon = () => {
   //
   ////DATA
   const navigate = useNavigate();
-  const auth = localStorage.getItem("user") || undefined;
+  const token = localStorage.getItem("token") || undefined;
   const quantity = useSelector((state: RootState) => state.cart.itemsInCart);
 
   ////LOGIC
   const handleCart = useCallback(() => {
-    if (!auth) {
+    if (!token) {
       navigate("/login");
       return;
     }
     navigate("/cart");
-  }, [auth, navigate]);
+  }, [token, navigate]);
 
   ////UI
   return (

@@ -55,8 +55,6 @@ const LogIn = () => {
       password: data.password,
     };
     mutation.mutate(dataToSend);
-    // const username = getUsername(data.username); //make username out of email
-    // dispatch(logUser(username));
   };
 
   ////UI
