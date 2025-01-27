@@ -30,6 +30,7 @@ const UserIcon = () => {
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser());
     setOpen(false);
+    navigate("/");
   }, []);
 
   ////UI

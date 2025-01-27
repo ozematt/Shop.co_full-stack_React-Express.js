@@ -7,15 +7,15 @@ import { Button } from "./";
 import { user, lock } from "../assets";
 import { type LoginSchema, loginSchema } from "../lib/types";
 import authenticate from "../api/queries/authorization";
-// import { getUsername } from "../lib/helpers/getUsernameFromEmail";
-// import { AppDispatch, useAppDispatch } from "../redux/store";
-// import { logUser } from "../redux/userSlice";
+import { getUsername } from "../lib/helpers";
+import { AppDispatch, useAppDispatch } from "../redux/store";
+import { setUsername } from "../redux/userSlice";
 
 const LogIn = () => {
   //
   ////DATA
   const navigate = useNavigate();
-  // const dispatch: AppDispatch = useAppDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -37,8 +37,11 @@ const LogIn = () => {
         message: "User does not exist",
       });
     },
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       clearErrors(["username"]);
+      localStorage.setItem("token", data.token);
+      const user = getUsername(variables.username);
+      dispatch(setUsername(user));
       reset(); //form fields reset
       navigate("/shop");
     },
