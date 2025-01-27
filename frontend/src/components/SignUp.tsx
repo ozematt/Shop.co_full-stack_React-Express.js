@@ -38,7 +38,7 @@ const SignUp = () => {
     },
     onSuccess: (data, variables) => {
       clearErrors(["username"]);
-      localStorage.setItem("token", data);
+      localStorage.setItem("token", data.token);
       const user = getUsername(variables.username);
       dispatch(setUsername(user));
       reset(); //form fields reset

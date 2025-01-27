@@ -13,20 +13,19 @@ const UserIcon = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useAppDispatch();
 
-  const auth = useSelector((state: RootState) => state.user.username);
-  console.log(auth);
+  const username = useSelector((state: RootState) => state.user.username);
 
   //custom hook
   const { open, setOpen } = usePanelOpen({ refValue: panelRef });
 
   ////LOGIC
   const handleUserPanel = useCallback(() => {
-    if (!auth) {
+    if (!username) {
       navigate("/login");
       return;
     }
     setOpen((prevState) => !prevState);
-  }, [auth, navigate]);
+  }, [username, navigate]);
 
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser());
@@ -48,7 +47,7 @@ const UserIcon = () => {
         <ul className="absolute right-[-5px] top-[50px] z-50 w-[130px] rounded-[5px] bg-white bg-opacity-90 pl-3 pt-1 ring-1 ring-black ring-opacity-20 dark:text-black">
           <li
             className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100"
-            // onClick={() => navigate(`account/${userName}`)}
+            onClick={() => navigate(`account/${username}`)}
           >
             My Account
           </li>
