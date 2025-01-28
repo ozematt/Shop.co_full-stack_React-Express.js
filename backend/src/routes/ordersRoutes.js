@@ -15,14 +15,14 @@ router.get("/orders", async (req, res) => {
       SELECT 
         o.id AS orderId, 
         o.total, 
-        o.date, 
+        o.created_at, 
         oi.product_name, 
         oi.quantity, 
         oi.price
       FROM orders AS o
       JOIN order_items AS oi ON o.id = oi.order_id
       WHERE o.user_id = ?
-      ORDER BY o.date DESC
+      ORDER BY o.created_at DESC
       `,
       [userId]
     );
@@ -31,13 +31,13 @@ router.get("/orders", async (req, res) => {
       return res.json({ message: "User has 0 orders" });
     }
 
-    // Grupowanie wyników
+    // Grouping results
     const ordersMap = rows.reduce((map, row) => {
       if (!map.has(row.orderId)) {
         map.set(row.orderId, {
           orderId: row.orderId,
           total: row.total,
-          date: null,
+          created_at: row.created_at,
           items: [],
         });
       }

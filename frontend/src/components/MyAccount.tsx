@@ -66,7 +66,7 @@ const MyAccount = () => {
           {orders.map((order) => (
             <div key={order.orderId} className="my-1">
               <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
-                Date: {order.date}
+                Date: {order.created_at}
               </p>
               {order.items.map((item) => (
                 <Fragment key={item.product_name}>

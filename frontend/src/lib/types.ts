@@ -29,7 +29,7 @@ const itemsSchema = z.object({
 export const ordersSchema = z.object({
   orderId: z.number(),
   total: z.number(),
-  date: z.string(),
+  created_at: z.string(),
   items: z.array(itemsSchema),
 });
 
