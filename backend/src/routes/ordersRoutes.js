@@ -16,7 +16,7 @@ router.get("/orders", async (req, res) => {
         o.id AS orderId, 
         o.total, 
         o.date, 
-        oi.title, 
+        oi.product_name, 
         oi.quantity, 
         oi.price
       FROM orders AS o
@@ -43,7 +43,7 @@ router.get("/orders", async (req, res) => {
       }
 
       map.get(row.orderId).items.push({
-        product_name: row.title,
+        product_name: row.product_name,
         quantity: row.quantity,
         price: row.price,
       });
@@ -69,7 +69,11 @@ router.post("/orders", async (req, res) => {
   }
 
   for (const item of items) {
-    if (!item.title || typeof item.price !== "number" || item.quantity <= 0) {
+    if (
+      !item.product_name ||
+      typeof item.price !== "number" ||
+      item.quantity <= 0
+    ) {
       return res.status(400).json({ error: "Invalid item data" });
     }
   }
@@ -88,7 +92,7 @@ router.post("/orders", async (req, res) => {
     // Preparing data for mass insertion into the `order_item` table
     const orderItems = items.map((item) => [
       orderId,
-      item.title,
+      item.product_name,
       item.image,
       item.price,
       item.quantity,
@@ -97,7 +101,7 @@ router.post("/orders", async (req, res) => {
     // Inserting multiple items into the `order_item` table
     const placeholders = items.map(() => `(?,?,?,?,?)`).join(",");
     const query = `
-      INSERT INTO order_items ( order_id, title, image, price, quantity)
+      INSERT INTO order_items ( order_id, product_name, image, price, quantity)
       VALUES ${placeholders}
     `;
     const flatOrderItems = orderItems.flat(); // Flattening an array (SQL requires one dimension)
