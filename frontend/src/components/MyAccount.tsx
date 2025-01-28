@@ -1,46 +1,22 @@
 import { Footer, Newsletter } from "../sections";
 import { user } from "../assets/index";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
-import { Fragment, useEffect } from "react";
-import getUser from "../api/queries/username";
-import { setUsername } from "../redux/userSlice";
-import { getDate, getUsername } from "../lib/helpers";
+import { RootState } from "../redux/store";
+import { Fragment } from "react";
+import { getDate } from "../lib/helpers";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import getOrder from "../api/queries/getOrders";
 
 const MyAccount = () => {
   //
   ////DATA
-  const dispatch: AppDispatch = useAppDispatch();
-
   const username = useSelector((state: RootState) => state.user.username);
 
   ////LOGIC
-  // set username to redux
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const userEmail = await getUser();
-  //       const username = getUsername(userEmail);
-  //       dispatch(setUsername(username));
-  //     } catch (error: any) {
-  //       console.error("Failed to fetch user:", error.message);
-  //     }
-  //   };
-  //   fetchUser();
-  // }, [username]);
-
-  const {
-    data: orders,
-    isSuccess,
-    isError,
-  } = useSuspenseQuery({
+  const { data: orders } = useSuspenseQuery({
     queryKey: ["orders"],
     queryFn: getOrder,
   });
-
-  console.log(orders[0].items[0].image);
 
   ////UI
   return (
@@ -63,40 +39,46 @@ const MyAccount = () => {
           </h6>
           <div className="border-b-[1px] py-2" />
 
-          {orders.map((order) => (
-            <div key={order.orderId} className="my-1">
-              <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
-                Date: {getDate(order.created_at)}
-              </p>
-              {order.items.map((item) => (
-                <Fragment key={item.itemId}>
-                  <div className="my-1 flex">
-                    <img
-                      src={item.image}
-                      alt="product image"
-                      className="h-[140px] w-[130px] rounded-lg bg-grayBG object-contain md:h-[180px] md:w-[170px] dark:bg-zinc-900"
-                    />
-                    <div className="ml-5 space-y-1">
-                      <p className="font-satoshi text-lg font-semibold md:text-2xl dark:opacity-90">
-                        {item.product_name}
-                      </p>
-                      <p className="font-satoshi text-lg md:text-xl dark:opacity-50">
-                        <span className="text-base md:text-lg">
-                          {item.quantity} x
-                        </span>{" "}
-                        {item.price} $
-                      </p>
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <div key={order.orderId} className="my-1">
+                <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
+                  Date: {getDate(order.created_at)}
+                </p>
+                {order.items.map((item) => (
+                  <Fragment key={item.itemId}>
+                    <div className="my-1 flex">
+                      <img
+                        src={item.image}
+                        alt="product image"
+                        className="h-[140px] w-[130px] rounded-lg bg-grayBG object-contain md:h-[180px] md:w-[170px] dark:bg-zinc-900"
+                      />
+                      <div className="ml-5 space-y-1">
+                        <p className="font-satoshi text-lg font-semibold md:text-2xl dark:opacity-90">
+                          {item.product_name}
+                        </p>
+                        <p className="font-satoshi text-lg md:text-xl dark:opacity-50">
+                          <span className="text-base md:text-lg">
+                            {item.quantity} x
+                          </span>{" "}
+                          {item.price} $
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="my-4 mr-[70px] border-b-[1px] md:my-6 md:mr-[150px] dark:opacity-30" />
-                </Fragment>
-              ))}
-              <p className="mt-[-10px] font-satoshi text-xl font-bold md:text-2xl">
-                Total: {order.total}$
-              </p>
-              <div className="border-b-[1px] py-2" />
-            </div>
-          ))}
+                    <div className="my-4 mr-[70px] border-b-[1px] md:my-6 md:mr-[150px] dark:opacity-30" />
+                  </Fragment>
+                ))}
+                <p className="mt-[-10px] font-satoshi text-xl font-bold md:text-2xl">
+                  Total: {order.total}$
+                </p>
+                <div className="border-b-[1px] py-2" />
+              </div>
+            ))
+          ) : (
+            <h2 className="insert-0 py-[190px] text-center font-integralCFBold text-7xl opacity-10 sm:text-8xl">
+              Empty
+            </h2>
+          )}
         </div>
       </section>{" "}
       <div className="max-container">
