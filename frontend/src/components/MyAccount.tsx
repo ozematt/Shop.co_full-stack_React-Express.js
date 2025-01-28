@@ -10,7 +10,7 @@ import getOrder from "../api/queries/getOrders";
 const MyAccount = () => {
   //
   ////DATA
-  const username = useSelector((state: RootState) => state.user.username);
+  // const username = useSelector((state: RootState) => state.user.username);
 
   ////LOGIC
   const { data: orders } = useSuspenseQuery({
@@ -29,9 +29,9 @@ const MyAccount = () => {
             className="h-[150px] w-[150px] rounded-full bg-grayBG object-contain opacity-80 md:h-[200px] md:w-[200px] dark:bg-zinc-900 dark:bg-opacity-30 dark:opacity-100 dark:invert"
           />
 
-          <p className="mt-2 font-satoshi text-2xl font-medium opacity-60 dark:opacity-100">
+          {/* <p className="mt-2 font-satoshi text-2xl font-medium opacity-60 dark:opacity-100">
             {username}
-          </p>
+          </p> */}
         </div>
         <div className="w-full rounded-[20px] px-7 py-5 ring-1 ring-black ring-opacity-10 md:px-9 md:py-7 dark:ring-white">
           <h6 className="font-integralCFBold text-2xl md:text-4xl">
