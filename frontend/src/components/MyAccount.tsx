@@ -69,7 +69,7 @@ const MyAccount = () => {
                 Date: {order.date}
               </p>
               {order.items.map((item) => (
-                <Fragment key={item.title}>
+                <Fragment key={item.product_name}>
                   <div className="my-1 flex">
                     <img
                       src={item.image}
@@ -78,7 +78,7 @@ const MyAccount = () => {
                     />
                     <div className="ml-5 space-y-1">
                       <p className="font-satoshi text-lg font-semibold md:text-2xl dark:opacity-90">
-                        {item.title}
+                        {item.product_name}
                       </p>
                       <p className="font-satoshi text-lg md:text-xl dark:opacity-50">
                         <span className="text-base md:text-lg">

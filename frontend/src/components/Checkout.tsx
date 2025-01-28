@@ -34,7 +34,7 @@ const Checkout = () => {
       // creating order object
       const order: OrderData = {
         items: itemsArray.map((item: CartItemT) => ({
-          title: item.title,
+          product_name: item.title,
           image: item.image,
           price: item.price,
           quantity: item.quantity,
