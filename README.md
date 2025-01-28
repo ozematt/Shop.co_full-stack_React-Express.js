@@ -79,7 +79,7 @@ Projekt został zbudowany z wykorzystaniem następujących technologii:
 
 Projekt jest skonfigurowany do uruchamiania w kontenerach Docker, co umożliwia łatwą współpracę między frontendem i backendem oraz zapewnia spójność środowiska wdrożeniowego.
 
-### Instalacja
+## Instalacja
 
 Aby zainstalować projekt, wykonaj poniższe kroki:
 
@@ -105,7 +105,7 @@ Aby zainstalować projekt, wykonaj poniższe kroki:
    - **Backend**: http://localhost:3005/
 
 
-#### Testowanie API przy użyciu Postmana
+## Testowanie API przy użyciu Postmana
 
 Aby zaimportować testy:
 1. Otwórz Postmana.
