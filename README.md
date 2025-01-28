@@ -22,29 +22,24 @@ Witam w moim projekcie **Shop.co**! Projekt powstał na podstawie darmowego layo
 
 ### Widok główny
 
-![HomePage](./app/screenshots/HomePage.png)
+![HomePage](./screenshots/Home-Page.webp)
+
+### Widok główny - ciemny
+
+![Mobile](./screenshots/Home-Page_dark.webp)
 
 ### Widok główny - produkty
 
-![ProductsView](./app/screenshots/ProductsView.png)
+![ProductsView](./screenshots/Shop_view.webp)
 
-### Widok główny + produkty - Mobilny
+### Koszyk zakupowy 
 
-![Mobile](./app/screenshots/Mobile.png)
-
-### Koszyk zakupowy - pusty
-
-![CartEmpty](./app/screenshots/CartEmpty.png)
-
-### Koszyk zakupowy - pełny
-
-![Cart](./app/screenshots/Cart.png)
-
-### Koszyk zakupowy - Mobilny
-
-![CartMobile](./app/screenshots/CartMobile.png)
+![CartEmpty](./screenshots/Cart_view.webp)
 
 ### Schemat bazy danych (w przyszłości rozszerzony)
+
+![DatabaseSchema](./screenshots/Database_schema.webp)
+
 
 ## Technologia
 
