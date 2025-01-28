@@ -5,7 +5,7 @@ import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { Fragment, useEffect } from "react";
 import getUser from "../api/queries/username";
 import { setUsername } from "../redux/userSlice";
-import { getUsername } from "../lib/helpers";
+import { getDate, getUsername } from "../lib/helpers";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import getOrder from "../api/queries/getOrders";
 
@@ -18,18 +18,18 @@ const MyAccount = () => {
 
   ////LOGIC
   // set username to redux
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userEmail = await getUser();
-        const username = getUsername(userEmail);
-        dispatch(setUsername(username));
-      } catch (error: any) {
-        console.error("Failed to fetch user:", error.message);
-      }
-    };
-    fetchUser();
-  }, [username]);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const userEmail = await getUser();
+  //       const username = getUsername(userEmail);
+  //       dispatch(setUsername(username));
+  //     } catch (error: any) {
+  //       console.error("Failed to fetch user:", error.message);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, [username]);
 
   const {
     data: orders,
@@ -40,7 +40,7 @@ const MyAccount = () => {
     queryFn: getOrder,
   });
 
-  console.log(orders);
+  console.log(orders[0].items[0].image);
 
   ////UI
   return (
@@ -66,10 +66,10 @@ const MyAccount = () => {
           {orders.map((order) => (
             <div key={order.orderId} className="my-1">
               <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
-                Date: {order.created_at}
+                Date: {getDate(order.created_at)}
               </p>
               {order.items.map((item) => (
-                <Fragment key={item.product_name}>
+                <Fragment key={item.itemId}>
                   <div className="my-1 flex">
                     <img
                       src={item.image}

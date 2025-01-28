@@ -21,6 +21,7 @@ export const orderDataSchema = z.object({
 });
 
 const itemsSchema = z.object({
+  itemId: z.number(),
   product_name: z.string(),
   image: z.string().url(),
   price: z.number(),

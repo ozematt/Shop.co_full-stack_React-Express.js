@@ -2,6 +2,7 @@ import calculateTotalDiscount from "./calculateTotalDiscount";
 import { generatePagination } from "./generatePagination";
 import { getStoredTheme, saveTheme } from "./themeUtils";
 import { getUsername } from "./getUserNameFromEmail";
+import { getDate } from "./getDate";
 
 export {
   calculateTotalDiscount,
@@ -9,4 +10,5 @@ export {
   getStoredTheme,
   saveTheme,
   getUsername,
+  getDate,
 };

@@ -16,7 +16,9 @@ router.get("/orders", async (req, res) => {
         o.id AS orderId, 
         o.total, 
         o.created_at, 
+        oi.id AS itemId,
         oi.product_name, 
+        oi.image,
         oi.quantity, 
         oi.price
       FROM orders AS o
@@ -43,7 +45,9 @@ router.get("/orders", async (req, res) => {
       }
 
       map.get(row.orderId).items.push({
+        itemId: row.itemId,
         product_name: row.product_name,
+        image: row.image,
         quantity: row.quantity,
         price: row.price,
       });
