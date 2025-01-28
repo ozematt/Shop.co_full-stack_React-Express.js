@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS orders (
 CREATE TABLE IF NOT EXISTS order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
-    title VARCHAR(255),
+    product_name VARCHAR(255),
     quantity INT,
     price DECIMAL(10, 2),
     image VARCHAR(255),
