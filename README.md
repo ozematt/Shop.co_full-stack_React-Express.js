@@ -73,7 +73,7 @@ Projekt został zbudowany z wykorzystaniem następujących technologii:
 - **MySQL**: Relacyjna baza danych używana do przechowywania danych.
 - **JWT (JSON Web Tokens)**: Technologia wykorzystywana do uwierzytelniania użytkowników.
 - **CORS**: Middleware umożliwiający współdzielenie zasobów między różnymi domenami.
-- **bcryptjs**: Biblioteka służąca do bezpiecznego haszowania haseł użytkowników przed ich zapisaniem w bazie danych
+- **bcryptjs**: Biblioteka służąca do bezpiecznego haszowania haseł użytkowników przed ich zapisaniem w bazie danych.
 - **Docker**: Narzędzie do konteneryzacji, które umożliwia łatwe wdrażanie i zarządzanie aplikacją w odseparowanych środowiskach.
 - **Postman**: Narzędzie do testowania i dokumentowania API. Pliki kolekcji testów oraz środowiska znajdują się w katalogu `postman/`.
 
