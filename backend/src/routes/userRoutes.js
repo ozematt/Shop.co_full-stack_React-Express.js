@@ -27,7 +27,4 @@ router.get("/user", async (req, res) => {
   }
 });
 
-// Save new order in orders history
-// router.post("/orders", async (req, res) => {});
-
 export default router;

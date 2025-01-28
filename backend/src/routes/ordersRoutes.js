@@ -1,7 +1,5 @@
 import { poolPromise } from "../db.js";
 import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -12,43 +10,52 @@ router.get("/orders", async (req, res) => {
   const userId = req.userId;
 
   try {
-    const [orders] = await poolPromise.query(
+    const [rows] = await poolPromise.query(
       `
-      SELECT * FROM orders WHERE user_id = ?
+      SELECT 
+        o.id AS orderId, 
+        o.total, 
+        o.date, 
+        oi.title, 
+        oi.quantity, 
+        oi.price
+      FROM orders AS o
+      JOIN order_items AS oi ON o.id = oi.order_id
+      WHERE o.user_id = ?
+      ORDER BY o.date DESC
       `,
       [userId]
     );
-    // const orderId = orders[0].id;
 
-    if (orders.length === 0) {
+    if (rows.length === 0) {
       return res.json({ message: "User has 0 orders" });
     }
 
-    const ordersWithItems = await Promise.all(
-      orders.map(async (order) => {
-        const [items] = await poolPromise.query(
-          `
-          SELECT title, quantity, price, image
-          FROM order_items
-          WHERE order_id = ?
-          `,
-          [order.id]
-        );
+    // Grupowanie wyników
+    const ordersMap = rows.reduce((map, row) => {
+      if (!map.has(row.orderId)) {
+        map.set(row.orderId, {
+          orderId: row.orderId,
+          total: row.total,
+          date: null,
+          items: [],
+        });
+      }
 
-        return {
-          orderId: order.id,
-          total: order.total,
-          date: order.date,
-          items: items, // Produkty dla tego zamówienia
-        };
-      })
-    );
+      map.get(row.orderId).items.push({
+        product_name: row.title,
+        quantity: row.quantity,
+        price: row.price,
+      });
 
-    // Zwróć całą historię zamówień jako tablicę
+      return map;
+    }, new Map());
+
+    const ordersWithItems = Array.from(ordersMap.values());
     res.json(ordersWithItems);
   } catch (error) {
-    console.error("Error while downloading orders:", error);
-    res.status(500).json({ message: "A server error occurred" });
+    console.error("Error fetching orders:", error.message);
+    res.status(503).json({ error: "Failed to fetch orders" });
   }
 });
 
@@ -56,6 +63,16 @@ router.get("/orders", async (req, res) => {
 router.post("/orders", async (req, res) => {
   const { items, total } = req.body;
   const userId = req.userId;
+
+  if (!Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ error: "Invalid items format" });
+  }
+
+  for (const item of items) {
+    if (!item.title || typeof item.price !== "number" || item.quantity <= 0) {
+      return res.status(400).json({ error: "Invalid item data" });
+    }
+  }
 
   const connection = await poolPromise.getConnection(); // Downloading connection
   try {

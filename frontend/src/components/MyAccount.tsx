@@ -6,7 +6,7 @@ import { Fragment, useEffect } from "react";
 import getUser from "../api/queries/username";
 import { setUsername } from "../redux/userSlice";
 import { getUsername } from "../lib/helpers";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import getOrder from "../api/queries/getOrders";
 
 const MyAccount = () => {
@@ -15,9 +15,8 @@ const MyAccount = () => {
   const dispatch: AppDispatch = useAppDispatch();
 
   const username = useSelector((state: RootState) => state.user.username);
-  // const [orders, setOrders] = useState<Orders>([]);
-  // const { userData } = useUserData();
 
+  ////LOGIC
   // set username to redux
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,22 +41,6 @@ const MyAccount = () => {
   });
 
   console.log(orders);
-
-  ////LOGIC
-  // useEffect(() => {
-  //   // orders from local storage
-  //   const rawUserOrders: unknown = JSON.parse(
-  //     localStorage.getItem("orders") || "[]",
-  //   );
-  //   const parsedOrders = ordersLocalStorageSchema.safeParse(rawUserOrders);
-
-  //   if (parsedOrders.success) {
-  //     setOrders(parsedOrders.data);
-  //   } else {
-  //     console.error("Invalid users data in localStorage", parsedOrders.error);
-  //     setOrders([]);
-  //   }
-  // }, []);
 
   ////UI
   return (
