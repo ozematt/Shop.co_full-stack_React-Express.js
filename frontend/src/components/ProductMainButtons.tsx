@@ -12,7 +12,7 @@ const ProductMainButtons = ({
   id,
   category,
   title,
-  images,
+  thumbnail,
   price,
   stock,
 }: Product) => {
@@ -37,7 +37,7 @@ const ProductMainButtons = ({
       const modifiedProductData = {
         id: id,
         title: title,
-        image: images[0],
+        image: thumbnail,
         price: price,
         category: category,
         purchaseTotal: newPrice,
@@ -56,7 +56,7 @@ const ProductMainButtons = ({
     token,
     id,
     title,
-    images,
+    thumbnail,
     price,
     quantity,
     category,
