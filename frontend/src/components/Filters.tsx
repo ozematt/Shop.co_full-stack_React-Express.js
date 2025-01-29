@@ -121,7 +121,7 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
             width={24}
             height={24}
             alt="settings"
-            className="-rotate-90 cursor-pointer opacity-60 hover:opacity-100"
+            className="-rotate-90 cursor-pointer opacity-60 hover:opacity-100 dark:invert"
             onClick={handleFiltersOpen}
           />
         )}

@@ -15,7 +15,7 @@ const Input = ({ icon, alt, type, placeholder }: InputProps) => {
       <input
         type={type}
         placeholder={placeholder}
-        className="h-[48px] w-full rounded-full bg-white pl-[60px] focus:outline-none focus:ring-1 focus:ring-black max-sm:placeholder:text-[14px]"
+        className="h-[48px] w-full rounded-full bg-white pl-[60px] focus:outline-none focus:ring-1 focus:ring-black max-sm:placeholder:text-[14px] dark:text-black"
       />
     </div>
   );

@@ -100,18 +100,18 @@ const ShopInfoBar = ({ total, first, second }: ShopInfoBarProps) => {
       {filterOpen && (
         <>
           {" "}
-          <div className="absolute top-[-70px] z-20 w-full rounded-2xl bg-white">
+          <div className="absolute top-[-70px] z-20 w-full rounded-2xl bg-white dark:bg-black">
             <img
               src={closeBlack}
               alt=""
               width={15}
               height={15}
-              className="absolute right-5 top-7 cursor-pointer hover:scale-95"
+              className="absolute right-5 top-7 cursor-pointer hover:scale-95 dark:invert"
               onClick={() => setFilterOpen(false)}
             />
             <Filters iconHide sortOptions close={handleFilterClose} />
           </div>
-          <div className="fixed inset-0 -z-50 bg-black opacity-50"></div>{" "}
+          <div className="fixed inset-0 z-10 bg-black opacity-50"></div>{" "}
         </>
       )}
     </div>

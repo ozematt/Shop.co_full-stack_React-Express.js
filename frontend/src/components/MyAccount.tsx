@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Fragment, useEffect } from "react";
 import { getDate } from "../lib/helpers";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import getOrder from "../api/queries/getOrders";
 
 const MyAccount = () => {
@@ -15,7 +15,7 @@ const MyAccount = () => {
     localStorage.getItem("user");
 
   ////LOGIC
-  const { data: orders, refetch } = useQuery({
+  const { data: orders, refetch } = useSuspenseQuery({
     queryKey: ["orders"],
     queryFn: getOrder,
   });
@@ -45,8 +45,8 @@ const MyAccount = () => {
           </h6>
           <div className="border-b-[1px] py-2" />
 
-          {orders?.length > 0 ? (
-            orders?.map((order) => (
+          {orders.length > 0 ? (
+            orders.map((order) => (
               <div key={order.orderId} className="my-1">
                 <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">
                   Date: {getDate(order.created_at)}

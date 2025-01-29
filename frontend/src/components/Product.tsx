@@ -9,7 +9,6 @@ const Product = ({
   title,
   price,
   rating,
-  images,
   discountPercentage,
   category,
 }: ProductProps) => {
