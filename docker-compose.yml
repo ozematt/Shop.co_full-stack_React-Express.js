@@ -1,16 +1,16 @@
 services:
   mysql:
-    image: mysql:8.0 # Wykorzystuje najnowszy obraz MySQL
+    image: mysql:8.0
     container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root # Hasło do użytkownika root
-      MYSQL_DATABASE: shop_co_db # Nazwa bazy danych do stworzenia przy starcie
-      MYSQL_USER: user # Nazwa użytkownika
-      MYSQL_PASSWORD: userpass # Hasło dla użytkownika
+      MYSQL_ROOT_PASSWORD: root # Root user password
+      MYSQL_DATABASE: shop_co_db # Database name to create on startup
+      MYSQL_USER: user # Username
+      MYSQL_PASSWORD: userpass # Password for user
     ports:
-      - "3306:3306" # Mapowanie portów (port na hoście -> port w kontenerze)
+      - "3306:3306" # Port mapping (port on host -> port in container)
     volumes:
-      - mysql-data:/var/lib/mysql # Użycie wolumenu do przechowywania danych
+      - mysql-data:/var/lib/mysql # Volume usage for data storage
       - ./db/init:/docker-entrypoint-initdb.d
     networks:
       - app-network
@@ -26,10 +26,10 @@ services:
           "user",
           "-puserpass",
         ]
-      interval: 10s # Sprawdzaj co 10 sekund
-      timeout: 5s # Maksymalny czas oczekiwania na odpowiedź
-      retries: 3 # Ilość prób przed uznaniem, że kontener jest "niezdrowy"
-      start_period: 30s # Poczekaj 30 sekund przed uruchomieniem healthcheck (ważne dla wolniejszych baz danych)
+      interval: 10s # Check every 10 seconds
+      timeout: 5s # Maximum waiting time for a response
+      retries: 3 # Number of attempts before the container is deemed to be "unhealthy"
+      start_period: 30s # Wait 30 seconds before running healthcheck (important for slower databases)
 
   backend:
     build: ./backend
@@ -44,10 +44,10 @@ services:
       - NODE_ENV=development
       - BACKEND_PORT=3005
     ports:
-      - "3005:3005" # Mapowanie portów dla aplikacji Node.js
+      - "3005:3005" # Port Mapping for Node.js Apps
     depends_on:
       mysql:
-        condition: service_healthy # Poczekaj, aż MySQL przejdzie testy healthcheck
+        condition: service_healthy # Wait for MySQL to pass healthcheck
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -70,7 +70,7 @@ services:
     command: npm run dev # Launches Vite development server
 
 volumes:
-  mysql-data: # Definicja wolumenu do przechowywania danych MySQL
+  mysql-data: # MySQL storage volume definition
 
 networks:
   app-network:
