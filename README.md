@@ -1,116 +1,113 @@
 # Shop.co
 
-Witam w moim projekcie **Shop.co**! Projekt powstał na podstawie darmowego layoutu z Figma: [E-commerce Website Template (Freebie)](https://www.figma.com/community/file/1273571982885059508/e-commerce-website-template-freebie). Celem projektu jest przećwiczenie pracy z nowoczesnymi narzędziami frontendowymi i backendowymi.
+Welcome to my project **Shop.co**! The project was created based on a free layout from Figma: [E-commerce Website Template (Freebie)](https://www.figma.com/community/file/1273571982885059508/e-commerce-website-template-freebie). The goal of this project is to practice working with modern frontend and backend tools.
 
+## Features
 
-## Funkcjonalności
+- **Responsiveness**: The app adjusts to different screen sizes.
+- **State Management**: **Redux Toolkit** is used for global state management.
+- **Product Search**: Users have access to a product search function.
+- **Product Catalog**:
+  - The app displays products with their images, descriptions, prices, and categories.
+  - **Filtering** and **sorting** products (e.g., by price, category) features are available.
+- **Shopping Cart** – Users can use all the functionalities of the shopping cart.
+- **User Management**: Adding and storing users in the database.
+- **User Authentication**: After logging in, users can add products to the cart and place an order.
+- **Checkout Process** – Users go through the entire shopping process.
+- **User Panel** – Users have access to their account information, as well as their purchase history.
+- **Theme Support**: Users can switch between **light** and **dark** themes.
 
-- **Responsywność**: Aplikacja dostosowuje się do różnych rozmiarów ekranu.
-- **Zarządzanie stanem**: Wykorzystanie **Redux ToolKit** do zarządzania globalnym stanem aplikacji.
-- **Wyszukiwarka produktów**: Użytkownicy mają do dyspozycji wyszukiwarkę produktów.
-- **Katalog Produktów**:
-  - Aplikacja wyświetla produkty wraz z ich zdjęciami, opisami, cenami i kategoriami.
-  - Funkcje **filtrowania** oraz **sortowania** produktów (np. według ceny, kategorii).
-- **Koszyk zakupowy** – Uzytkownicy mogą korzystać ze wszystkich funkcjonalności koszyka zakupowego.
-- **Zarządzanie użytkownikami**: Dodawanie i przechowywanie użytkowników w bazie danych.
-- **Uwierzytelnianie użytkowników**: Po zalogowaniu, użytkownicy mogą dodawać produkty do koszyka i składać zamówienie.
-- **Proces realizacji zakupów** – Użytkownicy przechodzą cały proces zakupowy.
-- **Panel uzytkownika** – Uzytkownik ma dostęp do informacji o swoim koncie, jak również do historii zakupów.
-- **Obsługa motywów**: Użytkownik ma możliwość przełączania między **jasnym** a **ciemnym** motywem.
+## Screenshots
 
-## Zrzuty ekranu
-
-### Widok główny
+### Main View
 
 ![HomePage](./screenshots/Home-Page.webp)
 
-### Widok główny - ciemny
+### Main View - Dark
 
 ![Mobile](./screenshots/Home-Page_dark.webp)
 
-### Widok główny - produkty
+### Main View - Products
 
 ![ProductsView](./screenshots/Shop_view.webp)
 
-### Koszyk zakupowy 
+### Shopping Cart
 
 ![CartEmpty](./screenshots/Cart_view.webp)
 
-### Schemat bazy danych (w przyszłości rozszerzony)
+### Database Schema (to be expanded in the future)
 
 ![DatabaseSchema](./screenshots/Database_schema.webp)
 
+## Technology
 
-## Technologia
-
-Projekt został zbudowany z wykorzystaniem następujących technologii:
+The project was built using the following technologies:
 
 ### FRONTEND:
 
-- **React**: JavaScriptowy framework do budowy interfejsów użytkownika.
-- **React-Router**: Biblioteka do zarządzania trasami w aplikacji React.
-- **React Hook Form**: Narzędzie do obsługi formularzy w React.
-- **TanStack Query**: Narzędzie do zarządzania stanem danych z API.
-- **TypeScript**: Superset JavaScriptu, który zapewnia statyczne typowanie, co poprawia niezawodność i stabilność aplikacji.
-- **TailwindCSS**: Nowoczesny framework CSS.
-- **Vite**: Nowoczesne narzędzie do budowy aplikacji frontendowych.
-- **Redux Toolkit**: Biblioteka do globalnego zarządzania stanem aplikacji.
-- **Material-UI (MUI)**: Framework CSS do stylizowania komponentów.
-- **Zod**: Biblioteka do walidacji danych.
-- **DummyJSON**: Zewnętrzne API, które dostarcza dane produktów, takie jak opisy, ceny, zdjęcia i kategorie (dokumentacja: [https://dummyjson.com/docs](https://dummyjson.com/docs)).
-- **API REST**: Obsługa danych przez endpointy API.
-- **Vitest** i **React Testing Library**: Narzędzia do testów jednostkowych.
-
+- **React**: A JavaScript framework for building user interfaces.
+- **React-Router**: A library for managing routes in a React application.
+- **React Hook Form**: A tool for handling forms in React.
+- **TanStack Query**: A tool for managing data from APIs.
+- **TypeScript**: A superset of JavaScript that provides static typing, improving the reliability and stability of the app.
+- **TailwindCSS**: A modern CSS framework.
+- **Vite**: A modern build tool for frontend applications.
+- **Redux Toolkit**: A library for global state management.
+- **Material-UI (MUI)**: A CSS framework for styling components.
+- **Zod**: A data validation library.
+- **DummyJSON**: An external API that provides product data such as descriptions, prices, images, and categories (documentation: [https://dummyjson.com/docs](https://dummyjson.com/docs)).
+- **REST API**: Data is handled through API endpoints.
+- **Vitest** and **React Testing Library**: Tools for unit testing.
 
 ### BACKEND:
 
-- **Node.js/Express.js**: Platforma i framework używane do tworzenia serwera oraz logiki backendowej.
-- **MySQL**: Relacyjna baza danych używana do przechowywania danych.
-- **JWT (JSON Web Tokens)**: Technologia wykorzystywana do uwierzytelniania użytkowników.
-- **CORS**: Middleware umożliwiający współdzielenie zasobów między różnymi domenami.
-- **bcryptjs**: Biblioteka służąca do bezpiecznego haszowania haseł użytkowników przed ich zapisaniem w bazie danych.
-- **Docker**: Narzędzie do konteneryzacji, które umożliwia łatwe wdrażanie i zarządzanie aplikacją w odseparowanych środowiskach.
-- **Postman**: Narzędzie do testowania i dokumentowania API. Pliki kolekcji testów oraz środowiska znajdują się w katalogu `postman/`.
+- **Node.js/Express.js**: A platform and framework used for creating the server and backend logic.
+- **MySQL**: A relational database used for storing data.
+- **JWT (JSON Web Tokens)**: A technology used for user authentication.
+- **CORS**: Middleware that enables resource sharing between different domains.
+- **bcryptjs**: A library for securely hashing user passwords before storing them in the database.
+- **Docker**: A containerization tool that allows easy deployment and management of the app in isolated environments.
+- **Postman**: A tool for testing and documenting APIs. Test collection files and environments are located in the `postman/` directory.
 
-Projekt jest skonfigurowany do uruchamiania w kontenerach Docker, co umożliwia łatwą współpracę między frontendem i backendem oraz zapewnia spójność środowiska wdrożeniowego.
+The project is set up to run in Docker containers, which ensures seamless integration between the frontend and backend, and maintains consistency across environments.
 
-## Instalacja
+## Installation
 
-Aby zainstalować projekt, wykonaj poniższe kroki:
+To install the project, follow the steps below:
 
-
-1. **Sklonuj repozytorium:**
-   Forkuj repozytorium na swoim koncie GitHub, a następnie sklonuj je lokalnie.
+1. **Clone the repository:**
+   Fork the repository to your GitHub account, and then clone it locally.
    ```sh
    git clone https://github.com/ozematt/Shop.co_fullstack.git
    ```
-2. **Przejdź do katalogu projektu:**
+   
+2. **Navigate to the project directory:**
    ```sh
    cd Shop.co_fullstack
    ```
    
-3. **Zbuduj i uruchom kontenery:**
-   Upewnij się, że masz zainstalowany i włączony Docker. Następnie uruchom poniższą komendę.
+3. **Build and run the containers:**
+   Make sure Docker is installed and running. Then, run the following command.
    ```sh
    docker-compose up --build
    ```
 
-5. **Dostęp aplikacji:**
+5. **Access the app:**
    - **Frontend**: http://localhost:5173/
    - **Backend**: http://localhost:3005/
 
 
-## Testowanie API przy użyciu Postmana
-   Musisz mieć zainstalowany Postman.
+## Testing the API using Postman
+   You need to have Postman installed.
 
-Aby zaimportować testy:
-1. Otwórz Postmana.
-2. Wybierz `Import`.
-3. Wskaż plik `postman/api-tests.postman_collection.json`.
-4. Zaimportuj środowisko `postman/local-environment.postman_environment.json`.
+To import the tests:
+1. Open Postmana.
+2. Select `Import`.
+3. Point to the file `postman/api-tests.postman_collection.json`.
+4. Import the environment `postman/local-environment.postman_environment.json`.
 
-## Funkcjonalności w trakcie przygotowania
+## Features in progress
 
-- **Baza danych**: Rozbudowa bazy danych.
+- **Database**: Expanding the database.
 
-Dziękuję za odwiedzenie repozytorium! 😊
+Thank you for visiting the repository! 😊
