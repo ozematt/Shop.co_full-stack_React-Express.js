@@ -101,6 +101,7 @@ Aby zainstalować projekt, wykonaj poniższe kroki:
 
 
 ## Testowanie API przy użyciu Postmana
+   Musisz mieć zainstalowany Postman.
 
 Aby zaimportować testy:
 1. Otwórz Postmana.
