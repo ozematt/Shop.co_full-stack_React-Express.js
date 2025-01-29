@@ -7,7 +7,7 @@ const Success = () => {
 
   ////UI
   return (
-    <div className="ring-3 mx-4 w-[500px] rounded-xl bg-white md:h-[270px]">
+    <div className="ring-3 mx-4 w-[500px] rounded-xl bg-white md:h-[270px] dark:bg-zinc-600">
       <div className="flex flex-col px-4 py-9">
         <h6 className="text-center font-integralCFBold text-3xl md:text-4xl">
           Success!
@@ -18,7 +18,7 @@ const Success = () => {
         </p>
         <button
           onClick={() => navigate("/")}
-          className="mx-auto my-3 rounded-full bg-black px-[60px] py-2 font-satoshi text-white hover:scale-90 active:scale-100 md:py-3"
+          className="mx-auto my-3 rounded-full bg-black px-[60px] py-2 font-satoshi text-white hover:scale-90 active:scale-100 md:py-3 dark:bg-white dark:text-black"
         >
           OK
         </button>

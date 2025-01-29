@@ -57,9 +57,11 @@ const Cart = () => {
           <h2 className="mt-[8px] font-integralCFBold text-[32px] max-md:leading-[36px] sm:mt-[24px] sm:text-5xl">
             your cart
           </h2>
-          <div className="mt-[20px] flex flex-wrap justify-center gap-[20px] sm:mt-[24px]">
+          {/* flex flex-wrap justify-center  */}
+          <div className="mt-[20px] flex flex-wrap gap-[20px] sm:mt-[24px] min-[1454px]:flex-nowrap">
             {/* cart items */}
-            <div className="h-full max-h-[505px] w-full rounded-[20px] ring-1 ring-black ring-opacity-10 min-[1454px]:max-w-[715px] dark:ring-white">
+            {/* min-[1454px]:max-w-[715px] */}
+            <div className="h-full max-h-[505px] w-full rounded-[20px] ring-1 ring-black ring-opacity-10 max-[1454px]:max-w-[800px] dark:ring-white">
               {cart.length ? (
                 cart.map((item) => <CartItem key={item.id} {...item} />)
               ) : (
@@ -69,7 +71,8 @@ const Cart = () => {
               )}
             </div>
             {/* SUMMARY */}
-            <div className="w-full max-w-[805px] rounded-[20px] ring-1 ring-black ring-opacity-10 min-[1454px]:max-w-[505px] dark:ring-white">
+            {/* min-[1454px]:max-w-[505px] max-w-[805px]*/}
+            <div className="w-full rounded-[20px] ring-1 ring-black ring-opacity-10 min-[1454px]:max-w-[505px] dark:ring-white">
               <div className="px-6 pb-[33px] pt-[20px]">
                 <h6 className="pb-1 font-satoshi text-xl font-bold sm:text-2xl">
                   Order Summary
@@ -111,33 +114,35 @@ const Cart = () => {
                     </p>
                   </div>
 
-                  <div className="relative flex justify-between pt-6">
-                    <img
-                      src={discount}
-                      alt="discount icon"
-                      className="absolute left-4 top-[50%] z-10 opacity-40 max-sm:scale-90 dark:invert"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Add promo code"
-                      className="h-[48px] w-full max-w-[326px] rounded-full bg-grayBG pl-[50px] placeholder:opacity-40 focus:outline-none focus:ring-1 focus:ring-black placeholder:max-sm:text-sm dark:bg-zinc-900 dark:focus:ring-white"
-                    />{" "}
-                    <button className="ml-[12px] rounded-full bg-black px-[25px] py-[13px] font-satoshi font-medium text-white transition duration-100 ease-in-out hover:scale-95 max-sm:text-sm sm:px-[38px] dark:ring-1 dark:ring-white">
-                      Apply
+                  {/* BUTTONS */}
+                  <div className="flex w-full flex-col items-center">
+                    <div className="relative flex w-full pt-6">
+                      <img
+                        src={discount}
+                        alt="discount icon"
+                        className="absolute left-4 top-[50%] z-10 opacity-40 max-sm:scale-90 dark:invert"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Add promo code"
+                        className="h-[48px] w-full rounded-full bg-grayBG pl-[50px] placeholder:opacity-40 focus:outline-none focus:ring-1 focus:ring-black placeholder:max-sm:text-sm dark:bg-zinc-900 dark:focus:ring-white"
+                      />{" "}
+                      <button className="ml-[12px] rounded-full bg-black px-[25px] py-[13px] font-satoshi font-medium text-white transition duration-100 ease-in-out hover:scale-95 max-sm:text-sm sm:px-[38px] dark:ring-1 dark:ring-white">
+                        Apply
+                      </button>
+                    </div>{" "}
+                    <button
+                      onClick={handleCheckout}
+                      className="relative mt-6 w-full max-w-[457px] rounded-full bg-black py-[19px] pr-9 font-satoshi font-medium text-white transition duration-100 ease-in-out hover:scale-95 max-sm:text-sm dark:bg-white dark:text-black"
+                    >
+                      Go to Checkout{" "}
+                      <img
+                        src={arrowWhite}
+                        alt="white arrow icon"
+                        className="absolute left-[65%] top-[30%] max-sm:scale-90 sm:left-[60%] sm:top-[32%] dark:invert"
+                      />
                     </button>
                   </div>
-
-                  <button
-                    onClick={handleCheckout}
-                    className="relative mt-6 w-full max-w-[457px] rounded-full bg-black py-[19px] pr-9 font-satoshi font-medium text-white transition duration-100 ease-in-out hover:scale-95 max-sm:text-sm dark:bg-white dark:text-black"
-                  >
-                    Go to Checkout{" "}
-                    <img
-                      src={arrowWhite}
-                      alt="white arrow icon"
-                      className="absolute left-[65%] top-[30%] max-sm:scale-90 sm:left-[60%] sm:top-[32%] dark:invert"
-                    />
-                  </button>
                 </div>
               </div>
             </div>
