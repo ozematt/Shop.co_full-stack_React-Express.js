@@ -41,6 +41,7 @@ const SignUp = () => {
       localStorage.setItem("token", data.token);
       const user = getUsername(variables.username);
       dispatch(setUsername(user));
+      localStorage.setItem("user", user);
       reset(); //form fields reset
       navigate("/shop");
     },

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { logOutUser } from "../redux/userSlice";
+import { clearCart } from "../redux/cartSlice";
 
 const UserIcon = () => {
   //
@@ -14,7 +15,9 @@ const UserIcon = () => {
   const dispatch: AppDispatch = useAppDispatch();
 
   const token = localStorage.getItem("token");
-  const username = useSelector((state: RootState) => state.user.username);
+  const username =
+    useSelector((state: RootState) => state.user.username) ||
+    localStorage.getItem("user");
 
   //custom hook
   const { open, setOpen } = usePanelOpen({ refValue: panelRef });
@@ -30,6 +33,7 @@ const UserIcon = () => {
 
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser());
+    dispatch(clearCart());
     setOpen(false);
     navigate("/");
   }, []);
