@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { useLocation } from "react-router-dom";
-import {
-  SortMethod,
-  addCategoryName,
-  addSortMethod,
-} from "../redux/productsSlice";
+import { addCategoryName, addSortMethod } from "../redux/productsSlice";
 import { settings, arrow, closeBlack } from "../assets";
 import { Filters } from "./";
-import { type ShopInfoBarProps } from "../lib/types";
+import { type SortMethod, type ShopInfoBarProps } from "../lib/types";
 import { sortingOptions } from "../constants";
 
 const ShopInfoBar = ({ total, first, second }: ShopInfoBarProps) => {

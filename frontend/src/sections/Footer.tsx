@@ -62,7 +62,7 @@ const Footer = () => {
           className="max-sm:p-2 sm:mb-[60px]"
         />
       </div>
-      <div className="absolute bottom-0 left-0 z-[-1] h-[120%] w-full max-w-[1440] bg-grayBG dark:bg-zinc-900" />
+      <div className="absolute bottom-0 left-0 z-[-1] h-[120%] w-full max-w-[1440] bg-grayBG dark:bg-zinc-800" />
     </section>
   );
 };

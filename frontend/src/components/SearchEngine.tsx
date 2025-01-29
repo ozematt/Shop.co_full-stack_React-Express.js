@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useDebounce, useRedirectToProduct } from "../lib/hooks";
-import { SelectedProduct } from "../lib/hooks/useRedirectToProduct";
+// import { SelectedProduct } from "../lib/hooks/useRedirectToProduct";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../api/queries";
-import { type ProductsFetchedData, type FilteredProduct } from "../lib/types";
+import {
+  type ProductsFetchedData,
+  type FilteredProduct,
+  type SelectedProduct,
+} from "../lib/types";
 
 const SearchEngine = () => {
   //
@@ -79,13 +83,13 @@ const SearchEngine = () => {
         />
 
         {filteredProducts.length > 0 ? (
-          <div className="scrollbar-hide absolute inset-0 left-0 top-[53px] z-20 h-[100px] overflow-auto rounded-xl bg-grayBG opacity-80 ring-1 ring-black">
+          <div className="scrollbar-hide absolute inset-0 left-0 top-[53px] z-20 h-[100px] overflow-auto rounded-xl bg-grayBG opacity-80 ring-1 ring-black dark:bg-zinc-600">
             <ul className="font-satoshi">
               {filteredProducts.map((product) => (
                 <li
                   key={product.id}
                   onClick={() => handleRedirectToProductDetails(product)}
-                  className="cursor-pointer px-9 py-2 hover:bg-grayBG hover:brightness-110"
+                  className="cursor-pointer px-9 py-2 hover:bg-grayBG hover:brightness-110 dark:hover:bg-zinc-600"
                 >
                   {product.title}
                 </li>
