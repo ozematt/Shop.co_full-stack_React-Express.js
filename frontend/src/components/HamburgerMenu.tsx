@@ -39,11 +39,16 @@ const HamburgerMenu = () => {
         onClick={() => setOpen((prevState) => !prevState)}
         className="mr-4 min-w-[24px] cursor-pointer pb-[6px] hover:opacity-60 sm:min-w-[30px] min-[1192px]:hidden dark:invert"
       />
-      {open && (
-        <ul className="absolute left-[15px] top-[100px] z-50 w-[130px] rounded-[5px] bg-white bg-opacity-90 pl-3 pt-1 ring-1 ring-black ring-opacity-20 dark:bg-opacity-80 dark:text-black">
+
+      <div
+        className={`${open ? "translate-x-0" : "-translate-x-full"} absolute left-0 top-0 z-50 h-[100vh] w-[40vw] transform bg-stone-200 shadow-lg transition-transform duration-300`}
+      >
+        <ul className="text-xl text-black lg:p-10">
+          <p className="pb-4 pl-4 pt-4 font-bold">MENU</p>
+          <hr className="border-b-1 border-stone-400" />
           <li
             onClick={() => navigate("/shop")}
-            className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100"
+            className="hover: cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-stone-100"
           >
             Shop
           </li>
@@ -51,13 +56,18 @@ const HamburgerMenu = () => {
             <li
               key={index}
               onClick={() => handleClick(link.id)}
-              className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100"
+              className="cursor-pointer py-2 pl-4 font-satoshi hover:bg-stone-100"
             >
               {link.label}
             </li>
           ))}
+          <hr className="border-b-1 border-stone-400" />
+          <li className="cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-stone-100">
+            Theme
+          </li>
         </ul>
-      )}
+        <div className="insert-0 fixed z-50 bg-black bg-opacity-30"></div>
+      </div>
     </div>
   );
 };
