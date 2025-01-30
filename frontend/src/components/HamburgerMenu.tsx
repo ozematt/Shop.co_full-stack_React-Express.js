@@ -31,7 +31,7 @@ const HamburgerMenu = () => {
 
       <div
         {...menuProps}
-        className={`${menuOpen ? "translate-x-0" : "-translate-x-full"} absolute left-0 top-0 z-50 h-[100vh] w-[40vw] transform bg-stone-200 shadow-lg transition-transform duration-300`}
+        className={`${menuOpen ? "translate-x-0" : "-translate-x-full"} absolute left-0 top-0 z-50 h-[100vh] w-[40vw] transform bg-stone-100 shadow-lg transition-transform duration-300`}
       >
         <ul className="text-xl text-black md:p-10">
           <p className="pb-4 pl-4 pt-4 font-bold">MENU</p>
@@ -40,7 +40,7 @@ const HamburgerMenu = () => {
             onClick={() => {
               navigate("/shop"), setMenuOpen(false);
             }}
-            className="hover: cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-stone-100"
+            className="hover: cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-white"
           >
             Shop
           </li>
@@ -48,13 +48,13 @@ const HamburgerMenu = () => {
             <li
               key={index}
               onClick={() => handleMenuItemClick(link.id)}
-              className="cursor-pointer py-2 pl-4 font-satoshi hover:bg-stone-100"
+              className="cursor-pointer py-2 pl-4 font-satoshi hover:bg-white"
             >
               {link.label}
             </li>
           ))}
           <hr className="border-b-1 border-stone-400" />
-          <li className="cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-stone-100">
+          <li className="cursor-pointer pb-2 pl-4 pt-2 font-satoshi hover:bg-white">
             Theme
           </li>
         </ul>

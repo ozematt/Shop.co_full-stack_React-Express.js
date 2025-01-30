@@ -19,7 +19,7 @@ import lock from "../assets/Lock.png";
 import arrowLeft from "../assets/Arrow-left.png";
 import arrowRight from "../assets/Arrow-right.png";
 
-import closeBlack from "../assets/Close_black.png";
+// import closeBlack from "../assets/Close.svg";
 
 import userIcon from "../assets/Avatar.svg";
 import heroIMG from "../assets/hero_cart.png";
@@ -32,7 +32,7 @@ import pay from "../assets/Pay.png";
 
 import lupeIcon from "../assets/Lupe_icon.png";
 import email from "../assets/Envelope.png";
-import close from "../assets/Close.png";
+import close from "../assets/Close.svg";
 
 import darkIcon from "../assets/ThemeIcon_dark.png";
 
@@ -61,6 +61,6 @@ export {
   lock,
   arrowLeft,
   arrowRight,
-  closeBlack,
+  // closeBlack,
   userIcon,
 };

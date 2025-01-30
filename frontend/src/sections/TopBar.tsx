@@ -34,9 +34,9 @@ const TopBar = () => {
             <img
               src={close}
               alt="close icon"
-              width={20}
-              height={20}
-              className="absolute right-[100px] hidden cursor-pointer sm:block dark:invert"
+              width={12}
+              height={12}
+              className="ml-2 cursor-pointer invert sm:block dark:invert-0"
               onClick={() => setHideBar(!hideBar)}
             />
           </div>

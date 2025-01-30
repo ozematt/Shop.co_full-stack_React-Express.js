@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { useLocation } from "react-router-dom";
 import { addCategoryName, addSortMethod } from "../redux/productsSlice";
-import { settings, arrow, closeBlack } from "../assets";
+import { settings, arrow, close } from "../assets";
 import { Filters } from "./";
 import { type SortMethod, type ShopInfoBarProps } from "../lib/types";
 import { sortingOptions } from "../constants";
@@ -98,7 +98,7 @@ const ShopInfoBar = ({ total, first, second }: ShopInfoBarProps) => {
           {" "}
           <div className="absolute top-[-70px] z-20 w-full rounded-2xl bg-white dark:bg-black">
             <img
-              src={closeBlack}
+              src={close}
               alt=""
               width={15}
               height={15}

@@ -39,6 +39,12 @@ const ProductDetails = () => {
   );
 
   ////LOGIC
+
+  useEffect(() => {
+    const scrollToTop = () => window.scrollTo({ top: 0 });
+    scrollToTop();
+  }, []);
+
   useEffect(() => {
     if (productFind) {
       setDisplayedProduct(productFind); // added to local state

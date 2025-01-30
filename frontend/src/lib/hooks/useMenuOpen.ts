@@ -26,6 +26,7 @@ const useMenuOpen = () => {
       if (e.key === "Escape") setMenuOpen(false);
     };
 
+    // start listening when menu is open
     if (menuOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
@@ -57,7 +58,7 @@ const useMenuOpen = () => {
         Math.abs(touchCurrentY - touchStartY)
       ) {
         if (touchStartX - touchCurrentX > 50) {
-          // Swipe w lewo o 50px
+          // Swipe on left 50px
           setMenuOpen(false);
         }
       }
