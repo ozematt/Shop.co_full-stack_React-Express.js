@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Footer, Newsletter } from "../sections";
-import { Breadcrumbs, Success } from "./";
+import { Alert, Breadcrumbs } from "./";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { clearCart } from "../redux/cartSlice";
@@ -74,9 +74,12 @@ const Checkout = () => {
         {" "}
         <Breadcrumbs />
         {success ? (
-          <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-70">
-            <Success />
-          </div>
+          <Alert
+            title="Success!"
+            text="Thank you for your purchase! Your order has been successfully placed.
+          You will be redirected to the homepage shortly."
+            buttonText="OK"
+          />
         ) : null}
         <div>
           <h2 className="mt-[8px] font-integralCFBold text-[32px] max-md:leading-[36px] sm:mt-[24px] sm:text-5xl">

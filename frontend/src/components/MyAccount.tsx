@@ -1,11 +1,13 @@
 import { Footer, Newsletter } from "../sections";
 import { user } from "../assets/index";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { Fragment, useEffect } from "react";
+import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
+import { Fragment, useEffect, useState } from "react";
 import { getDate } from "../lib/helpers";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import getOrder from "../api/queries/getOrders";
+import { logOutUser } from "../redux/userSlice";
+import { Alert } from ".";
 
 const MyAccount = () => {
   //
@@ -14,20 +16,46 @@ const MyAccount = () => {
     useSelector((state: RootState) => state.user.username) ||
     localStorage.getItem("user");
 
+  const dispatch: AppDispatch = useAppDispatch();
+
+  const [validToken, setValidToken] = useState(true);
   ////LOGIC
-  const { data: orders, refetch } = useSuspenseQuery({
+  const {
+    data: orders,
+    refetch,
+    isError,
+    isSuccess,
+  } = useQuery({
     queryKey: ["orders"],
     queryFn: getOrder,
   });
 
   useEffect(() => {
-    refetch();
-  }, [username]);
+    if (isError) {
+      dispatch(logOutUser());
+      setValidToken(false);
+    }
+    setValidToken(true);
+  }, [isError, dispatch]);
+
+  useEffect(() => {
+    if (isSuccess) refetch();
+  }, [username, isSuccess]);
 
   ////UI
   return (
     <>
       <section className="max-container mt-3 flex w-full gap-6 px-4 max-lg:flex-wrap sm:px-[100px]">
+        {!validToken ? (
+          <Alert
+            url="login"
+            title="Session Ended!"
+            text="Your session has ended. For security and to protect your account,
+            we’ve automatically logged you out. Please log in again to continue
+            where you left off."
+            buttonText="Login"
+          />
+        ) : null}
         <div className="flex max-h-[400px] w-1/3 shrink-0 flex-col items-center rounded-[20px] py-5 ring-1 ring-black ring-opacity-10 max-lg:w-full md:py-7 dark:ring-white">
           <img
             src={user}
@@ -45,7 +73,7 @@ const MyAccount = () => {
           </h6>
           <div className="border-b-[1px] py-2" />
 
-          {orders.length > 0 ? (
+          {orders ? (
             orders.map((order) => (
               <div key={order.orderId} className="my-1">
                 <p className="py-1 pt-3 font-satoshi opacity-60 max-md:text-sm md:py-2">

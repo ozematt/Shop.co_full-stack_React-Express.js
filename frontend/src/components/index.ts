@@ -27,19 +27,18 @@ import Shop from "./Shop";
 import ShopInfoBar from "./ShopInfoBar";
 import Sorting from "./Sorting";
 import UserIcon from "./UserIcon";
-import Success from "./Success";
 import SearchEngine from "./SearchEngine";
 import SearchEngineIcon from "./SearchEngineIcon";
 import ProductsList from "./ProductsList";
 import SignUp from "./SignUp";
 import ThemeIcon from "./ThemeIcon";
+import Alert from "./Alert";
 
 export {
   SignUp,
   ProductsList,
   SearchEngine,
   SearchEngineIcon,
-  Success,
   AlsoLike,
   Breadcrumbs,
   Button,
@@ -70,4 +69,5 @@ export {
   Sorting,
   UserIcon,
   ThemeIcon,
+  Alert,
 };
