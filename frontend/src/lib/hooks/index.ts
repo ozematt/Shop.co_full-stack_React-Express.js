@@ -6,8 +6,9 @@ import useDebounce from "./useDebounce";
 import useRedirectToProduct from "./useRedirectToProduct";
 import useTimeOut from "./useTimeOut";
 import usePagedItems from "./usePagedItems";
-
+import useMenuOpen from "./useMenuOpen";
 export {
+  useMenuOpen,
   usePagedItems,
   useTimeOut,
   useDiscount,
