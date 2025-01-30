@@ -5,11 +5,11 @@ const useMenuOpen = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleClick = useCallback(
+  const handleMenuItemClick = useCallback(
     (id: string) => {
       navigate("/");
       setMenuOpen(false);
-      // Scrolling to element id after page load
+      // Scrolling to section id after page load
       setTimeout(() => {
         const targetElement = document.getElementById(id);
         if (targetElement) {
@@ -20,7 +20,7 @@ const useMenuOpen = () => {
     [navigate],
   );
 
-  // Obsługa klawisza Escape
+  // Escape key support
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -35,7 +35,7 @@ const useMenuOpen = () => {
     };
   }, [menuOpen]);
 
-  // Obsługa gestu przesunięcia
+  // Swipe gesture support
   useEffect(() => {
     if (!menuOpen) return;
 
@@ -51,7 +51,7 @@ const useMenuOpen = () => {
       const touchCurrentX = e.touches[0].clientX;
       const touchCurrentY = e.touches[0].clientY;
 
-      // Sprawdź czy przesunięcie jest bardziej poziome niż pionowe
+      // Check if the offset is more horizontal than vertical
       if (
         Math.abs(touchCurrentX - touchStartX) >
         Math.abs(touchCurrentY - touchStartY)
@@ -78,10 +78,10 @@ const useMenuOpen = () => {
     menuOpen,
     setMenuOpen,
     toggleMenu,
-    handleClick,
+    handleMenuItemClick,
     menuProps: {
       onTouchStart: (e: React.TouchEvent) => {
-        // Zapobiegaj bubble'owaniu eventów dotykowych
+        // Prevent touch events from bubbling
         e.stopPropagation();
       },
     },

@@ -7,7 +7,7 @@ const HamburgerMenu = () => {
   //
   ////DATA
   const navigate = useNavigate();
-  const { menuOpen, setMenuOpen, toggleMenu, handleClick, menuProps } =
+  const { menuOpen, setMenuOpen, toggleMenu, handleMenuItemClick, menuProps } =
     useMenuOpen();
 
   ////UI
@@ -47,7 +47,7 @@ const HamburgerMenu = () => {
           {navLinks.map((link, index) => (
             <li
               key={index}
-              onClick={() => handleClick(link.id)}
+              onClick={() => handleMenuItemClick(link.id)}
               className="cursor-pointer py-2 pl-4 font-satoshi hover:bg-stone-100"
             >
               {link.label}
