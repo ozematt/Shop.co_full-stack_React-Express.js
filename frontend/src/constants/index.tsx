@@ -1,6 +1,3 @@
-import CK from "../assets/CalvinKlein.png";
-import nike from "../assets/Nike.png";
-import delonghi from "../assets/Delonghi.png";
 import alpine from "../assets/Alpine.png";
 import redBull from "../assets/Red-Bull.png";
 import samsung from "../assets/Samsung.png";
