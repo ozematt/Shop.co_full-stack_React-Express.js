@@ -32,6 +32,7 @@ import SearchEngine from "./SearchEngine";
 import SearchEngineIcon from "./SearchEngineIcon";
 import ProductsList from "./ProductsList";
 import SignUp from "./SignUp";
+import ThemeIcon from "./ThemeIcon";
 
 export {
   SignUp,
@@ -68,4 +69,5 @@ export {
   ShopInfoBar,
   Sorting,
   UserIcon,
+  ThemeIcon,
 };

@@ -7,6 +7,7 @@ import useRedirectToProduct from "./useRedirectToProduct";
 import useTimeOut from "./useTimeOut";
 import usePagedItems from "./usePagedItems";
 import useMenuOpen from "./useMenuOpen";
+import useToggleTheme from "./useToggleTheme";
 export {
   useMenuOpen,
   usePagedItems,
@@ -17,4 +18,5 @@ export {
   useQuantity,
   useUserData,
   useRedirectToProduct,
+  useToggleTheme,
 };

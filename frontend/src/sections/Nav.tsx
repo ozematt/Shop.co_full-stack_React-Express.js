@@ -1,5 +1,5 @@
 import { navLinks } from "../constants";
-import { arrow, darkIcon } from "../assets";
+import { arrow } from "../assets";
 import { useLocation, useNavigate } from "react-router";
 import {
   UserIcon,
@@ -7,29 +7,15 @@ import {
   HamburgerMenu,
   SearchEngine,
   SearchEngineIcon,
+  ThemeIcon,
 } from "../components";
-import { useCallback, useEffect, useState } from "react";
-import { getStoredTheme, saveTheme } from "../lib/helpers/index";
 
 const Nav = () => {
   //
   ////DATA
   const navigate = useNavigate();
   const location = useLocation();
-  const [theme, setTheme] = useState(getStoredTheme());
-
-  //// LOGIC
-  useEffect(() => {
-    if (theme === "dark") {
-      handleThemeToggle("dark");
-    }
-  }, [theme]);
-
-  //action on theme switch button
-  const handleThemeToggle = useCallback((toggledTheme: string) => {
-    setTheme(toggledTheme);
-    saveTheme(toggledTheme);
-  }, []);
+  // const locationShop = !!location.pathname.includes("shop");
 
   ////UI
   return (
@@ -77,14 +63,7 @@ const Nav = () => {
         <SearchEngineIcon />
         <CartIcon />
         <UserIcon />
-        <img
-          src={darkIcon}
-          width={24}
-          className="cursor-pointer hover:opacity-60 dark:invert"
-          onClick={() =>
-            handleThemeToggle(theme === "light" ? "dark" : "light")
-          }
-        />
+        <ThemeIcon />
       </div>
     </nav>
   );
