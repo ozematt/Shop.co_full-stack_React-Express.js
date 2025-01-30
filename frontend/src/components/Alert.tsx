@@ -8,8 +8,11 @@ type AlertProps = {
 };
 
 const Alert = ({ url, title, text, buttonText }: AlertProps) => {
+  //
+  ////DATA
   const navigate = useNavigate();
 
+  ////UI
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-70">
       <div className="ring-3 mx-4 w-[500px] rounded-xl bg-white md:h-[270px] dark:bg-zinc-600">
