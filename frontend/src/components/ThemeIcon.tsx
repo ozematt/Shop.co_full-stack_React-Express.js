@@ -8,16 +8,16 @@ type ThemeIconProps = {
 const ThemeIcon = ({ isVisible }: ThemeIconProps) => {
   //
   ////DATA
-  const { theme, handleThemeToggle } = useToggleTheme();
+  const { themeToggle } = useToggleTheme();
 
   ////UI
   return (
     <img
+      {...themeToggle}
       src={darkIcon}
       width={24}
       height={24}
       className={`cursor-pointer hover:opacity-60 ${isVisible ? "" : "max-[1192px]:hidden"} dark:invert`}
-      onClick={() => handleThemeToggle(theme === "light" ? "dark" : "light")}
     />
   );
 };

@@ -15,7 +15,13 @@ const useToggleTheme = () => {
     saveTheme(toggledTheme);
   }, []);
 
-  return { theme, setTheme, handleThemeToggle };
+  return {
+    theme,
+    setTheme,
+    themeToggle: {
+      onClick: () => handleThemeToggle(theme === "light" ? "dark" : "light"),
+    },
+  };
 };
 
 export default useToggleTheme;
