@@ -14,7 +14,6 @@ const UserIcon = () => {
   const dispatch: AppDispatch = useAppDispatch();
 
   const token = localStorage.getItem("token");
-  console.log(token);
 
   const username =
     useSelector((state: RootState) => state.user.username) ||

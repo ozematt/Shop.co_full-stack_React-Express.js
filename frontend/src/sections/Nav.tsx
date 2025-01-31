@@ -15,7 +15,7 @@ const Nav = () => {
   ////DATA
   const navigate = useNavigate();
   const location = useLocation();
-  // const locationShop = !!location.pathname.includes("shop");
+  const locationShop = !!location.pathname.includes("shop");
 
   ////UI
   return (
@@ -41,11 +41,12 @@ const Nav = () => {
           >
             Shop
           </button>
-          {location.pathname.includes("shop") ? (
-            <img src={arrow} alt="arrow" className="dark:invert" />
-          ) : (
-            <img src={arrow} alt="arrow" className="rotate-180 dark:invert" />
-          )}
+
+          <img
+            src={arrow}
+            alt="arrow"
+            className={`dark:invert ${locationShop ? "rotate-0" : "rotate-180"} transition duration-300 ease-in-out`}
+          />
         </li>
         {navLinks.map((link, index) => (
           <li key={index} className="py-3 dark:text-white">
