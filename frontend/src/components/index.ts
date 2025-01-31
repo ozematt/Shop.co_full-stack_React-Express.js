@@ -33,6 +33,9 @@ import ProductsList from "./ProductsList";
 import SignUp from "./SignUp";
 import ThemeIcon from "./ThemeIcon";
 import Alert from "./Alert";
+import NavLinks from "./NavLinks";
+import Logo from "./Logo";
+import NavIcons from "./NavIcons";
 
 export {
   SignUp,
@@ -70,4 +73,7 @@ export {
   UserIcon,
   ThemeIcon,
   Alert,
+  NavLinks,
+  NavIcons,
+  Logo,
 };
