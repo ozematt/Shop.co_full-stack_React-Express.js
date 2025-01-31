@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { addSortMethod } from "../redux/productsSlice";
 import { AppDispatch, useAppDispatch } from "../redux/store";
-import { arrow } from "../assets";
 import { sortingOptions } from "../constants";
+import { RotatingArrow } from ".";
 
 const Sorting = () => {
   //
@@ -20,16 +20,7 @@ const Sorting = () => {
         className="flex cursor-pointer items-center justify-between"
       >
         <p className="font-satoshi text-[20px] font-bold">Sorting</p>
-        <img
-          src={arrow}
-          width={20}
-          height={20}
-          alt="arrow"
-          className="cursor-pointer opacity-60 hover:opacity-100 dark:invert"
-          style={{
-            transform: `rotate(${!open ? "180deg" : "0deg"})`,
-          }}
-        />
+        <RotatingArrow rotateOn={open} />
       </div>
       <div className="pb-6">
         {open &&

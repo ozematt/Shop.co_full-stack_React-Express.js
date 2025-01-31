@@ -16,7 +16,6 @@ const ShopInfoBar = () => {
   ////DATA
   const { pathname } = useLocation();
   const dispatch: AppDispatch = useAppDispatch();
-
   const { filterWindowOpen, handleFilterOpen } = useFilterWindow();
 
   ////LOGIC
@@ -31,7 +30,6 @@ const ShopInfoBar = () => {
   return (
     <div className="relative flex items-center justify-between">
       <CategoryName />
-
       <div className="flex items-center pt-2 max-sm:text-[14px]">
         <NumberOfProducts />
         <FilterSettingsIcon onClick={handleFilterOpen} />

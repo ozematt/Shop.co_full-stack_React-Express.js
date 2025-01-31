@@ -8,7 +8,7 @@ import {
   addCategorizedProducts,
   addCategoryName,
 } from "../redux/productsSlice";
-import { Sorting } from "./";
+import { RotatingArrow, Sorting } from "./";
 import { settings, arrow } from "../assets";
 import { type Product, type FiltersProps } from "../lib/types";
 
@@ -114,18 +114,19 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
   return (
     <div className="rounded-[20px] px-6 pb-6 pt-[20px] ring-1 ring-black ring-opacity-20 dark:bg-zinc-900">
       <div className="flex items-center justify-between pb-6">
+        {/*  filter header */}
         <p className="font-satoshi text-[20px] font-bold">Filters</p>
-        {iconHide ?? (
-          <img
-            src={settings}
-            width={24}
-            height={24}
-            alt="settings"
-            className="-rotate-90 cursor-pointer opacity-60 hover:opacity-100 dark:invert"
-            onClick={handleFiltersOpen}
-          />
-        )}
+        <img
+          src={settings}
+          width={24}
+          height={24}
+          alt="settings"
+          className={`-rotate-90 ${iconHide ? "hidden" : ""} cursor-pointer opacity-60 hover:opacity-100 dark:invert`}
+          onClick={handleFiltersOpen}
+        />
       </div>
+
+      {/* filter method */}
       <div className="border-t-2 pb-6" />
       {sortOptions ? <Sorting /> : null}
 
@@ -137,16 +138,7 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
         className="flex cursor-pointer items-center justify-between"
       >
         <p className="font-satoshi text-[20px] font-bold">Category</p>
-        <img
-          src={arrow}
-          width={20}
-          height={20}
-          alt="arrow"
-          className="cursor-pointer opacity-60 hover:opacity-100 dark:invert"
-          style={{
-            transform: `rotate(${!categoryOpen ? "180deg" : "0deg"})`,
-          }}
-        />
+        <RotatingArrow rotateOn={categoryOpen} />
       </div>
 
       <div className="pb-6">
@@ -173,16 +165,7 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
         className="flex cursor-pointer items-center justify-between pb-6"
       >
         <p className="font-satoshi text-[20px] font-bold">Price</p>
-        <img
-          src={arrow}
-          width={20}
-          height={20}
-          alt="arrow"
-          className="cursor-pointer opacity-60 hover:opacity-100 dark:invert"
-          style={{
-            transform: `rotate(${!priceOpen ? "180deg" : "0deg"})`,
-          }}
-        />
+        <RotatingArrow rotateOn={priceOpen} />
       </div>
       {priceOpen && (
         <div className="flex gap-2 pb-6">

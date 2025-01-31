@@ -4,6 +4,7 @@ import { AppDispatch, useAppDispatch } from "../redux/store";
 import { sortingOptions } from "../constants";
 import { SortMethod } from "../lib/types";
 import { addSortMethod } from "../redux/productsSlice";
+import { RotatingArrow } from ".";
 
 const SortByMethod = () => {
   //
@@ -27,13 +28,7 @@ const SortByMethod = () => {
         className="flex cursor-pointer items-center pl-2 pt-2 font-satoshi font-bold max-xl:hidden"
       >
         {sortBy}
-        <img
-          src={arrow}
-          width={20}
-          height={20}
-          alt="arrow"
-          className={`px-[2px] ${openSortByMenu ? "rotate-0" : "rotate-180"} transition duration-200 ease-in-out`}
-        />
+        <RotatingArrow rotateOn={openSortByMenu} />
       </span>
       {/* drop down menu */}
       <ul

@@ -42,6 +42,7 @@ import CategoryName from "./CategoryName";
 import FilterSettingsIcon from "./FilterSettingsIcon";
 import SortByMethod from "./SortByMethod";
 import FilterWindow from "./FilterWindow";
+import RotatingArrow from "./RotatingArrow";
 
 export {
   SignUp,
@@ -88,4 +89,5 @@ export {
   FilterSettingsIcon,
   FilterWindow,
   SortByMethod,
+  RotatingArrow,
 };
