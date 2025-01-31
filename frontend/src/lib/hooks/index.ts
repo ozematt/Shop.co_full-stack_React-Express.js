@@ -8,6 +8,7 @@ import useTimeOut from "./useTimeOut";
 import usePagedItems from "./usePagedItems";
 import useMenuOpen from "./useMenuOpen";
 import useToggleTheme from "./useToggleTheme";
+import useFilterWindow from "./useFilterWindow";
 export {
   useMenuOpen,
   usePagedItems,
@@ -19,4 +20,5 @@ export {
   useUserData,
   useRedirectToProduct,
   useToggleTheme,
+  useFilterWindow,
 };

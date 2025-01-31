@@ -41,6 +41,7 @@ import NumberOfProducts from "./NumberOfProducts";
 import CategoryName from "./CategoryName";
 import FilterSettingsIcon from "./FilterSettingsIcon";
 import SortByMethod from "./SortByMethod";
+import FilterWindow from "./FilterWindow";
 
 export {
   SignUp,
@@ -85,5 +86,6 @@ export {
   NumberOfProducts,
   CategoryName,
   FilterSettingsIcon,
+  FilterWindow,
   SortByMethod,
 };

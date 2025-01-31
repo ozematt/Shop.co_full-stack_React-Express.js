@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
+import { useEffect } from "react";
+import { AppDispatch, useAppDispatch } from "../redux/store";
 import { useLocation } from "react-router-dom";
-import { addCategoryName, addSortMethod } from "../redux/productsSlice";
-import { settings, arrow, close } from "../assets";
+import { addCategoryName } from "../redux/productsSlice";
 import {
   CategoryName,
   FilterSettingsIcon,
-  Filters,
+  FilterWindow,
   NumberOfProducts,
   SortByMethod,
 } from "./";
-import { type SortMethod } from "../lib/types";
-import { sortingOptions } from "../constants";
+import { useFilterWindow } from "../lib/hooks";
 
 const ShopInfoBar = () => {
   //
@@ -20,10 +17,7 @@ const ShopInfoBar = () => {
   const { pathname } = useLocation();
   const dispatch: AppDispatch = useAppDispatch();
 
-  const [openSortByMenu, setOpenSortByMenu] = useState(false);
-  const [sortBy, setSortBy] = useState("Alphabetical");
-
-  const [filterOpen, setFilterOpen] = useState(false);
+  const { filterWindowOpen, handleFilterOpen } = useFilterWindow();
 
   ////LOGIC
   //when pathname is changing to "/shop" set category name in global state to ""
@@ -32,19 +26,6 @@ const ShopInfoBar = () => {
       dispatch(addCategoryName(""));
     }
   }, [pathname]);
-
-  const handleSortChange = (option: SortMethod) => {
-    setSortBy(option);
-    setOpenSortByMenu(false);
-    dispatch(addSortMethod(option));
-  };
-
-  const handleFilterClose = () => {
-    setFilterOpen(false);
-  };
-  const handleFilterOpen = () => {
-    setFilterOpen(!filterOpen);
-  };
 
   ////UI
   return (
@@ -56,23 +37,7 @@ const ShopInfoBar = () => {
         <FilterSettingsIcon onClick={handleFilterOpen} />
         <SortByMethod />
       </div>
-      {filterOpen && (
-        <>
-          {" "}
-          <div className="absolute top-[-70px] z-20 w-full rounded-2xl bg-white dark:bg-black">
-            <img
-              src={close}
-              alt=""
-              width={15}
-              height={15}
-              className="absolute right-5 top-7 cursor-pointer hover:scale-95 dark:invert"
-              onClick={() => setFilterOpen(false)}
-            />
-            <Filters iconHide sortOptions close={handleFilterClose} />
-          </div>
-          <div className="fixed inset-0 z-10 bg-black opacity-50"></div>{" "}
-        </>
-      )}
+      <FilterWindow onClick={handleFilterOpen} open={filterWindowOpen} />
     </div>
   );
 };
