@@ -4,25 +4,26 @@ import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { useLocation } from "react-router-dom";
 import { addCategoryName, addSortMethod } from "../redux/productsSlice";
 import { settings, arrow, close } from "../assets";
-import { Filters } from "./";
-import { type SortMethod, type ShopInfoBarProps } from "../lib/types";
+import {
+  CategoryName,
+  FilterSettingsIcon,
+  Filters,
+  NumberOfProducts,
+  SortByMethod,
+} from "./";
+import { type SortMethod } from "../lib/types";
 import { sortingOptions } from "../constants";
 
-const ShopInfoBar = ({ total, first, second }: ShopInfoBarProps) => {
+const ShopInfoBar = () => {
   //
   ////DATA
   const { pathname } = useLocation();
   const dispatch: AppDispatch = useAppDispatch();
 
-  const [open, setOpen] = useState(false);
+  const [openSortByMenu, setOpenSortByMenu] = useState(false);
   const [sortBy, setSortBy] = useState("Alphabetical");
 
   const [filterOpen, setFilterOpen] = useState(false);
-
-  //global state of added category name
-  const categoryName = useSelector(
-    (state: RootState) => state.products.categoryName,
-  );
 
   ////LOGIC
   //when pathname is changing to "/shop" set category name in global state to ""
@@ -34,64 +35,26 @@ const ShopInfoBar = ({ total, first, second }: ShopInfoBarProps) => {
 
   const handleSortChange = (option: SortMethod) => {
     setSortBy(option);
-    setOpen(false);
+    setOpenSortByMenu(false);
     dispatch(addSortMethod(option));
   };
 
   const handleFilterClose = () => {
     setFilterOpen(false);
   };
+  const handleFilterOpen = () => {
+    setFilterOpen(!filterOpen);
+  };
 
   ////UI
   return (
     <div className="relative flex items-center justify-between">
-      <h3 className="font-satoshi text-2xl font-bold sm:text-[32px]">
-        {categoryName ? categoryName : "Products"}
-      </h3>
+      <CategoryName />
+
       <div className="flex items-center pt-2 max-sm:text-[14px]">
-        {" "}
-        <p className="font-satoshi opacity-60 sm:pt-2">
-          Showing {first}-{second} of {total} Products{" "}
-          <span className="hidden pl-1 xl:inline">Sort by:</span>
-        </p>
-        {/* SETTINGS ICON */}
-        <img
-          src={settings}
-          alt="settings"
-          width={34}
-          height={34}
-          onClick={() => setFilterOpen(!filterOpen)}
-          className="mb-[-3px] ml-5 hidden -rotate-90 cursor-pointer rounded-full bg-grayBG p-[7px] opacity-80 hover:opacity-100 max-xl:block"
-        />
-        <span
-          onClick={() => setOpen(!open)}
-          className="flex cursor-pointer items-center pl-2 pt-2 font-satoshi font-bold max-xl:hidden"
-        >
-          {sortBy}
-          <img
-            src={arrow}
-            width={16}
-            height={16}
-            alt="arrow"
-            className="px-[2px]"
-            style={{
-              transform: `rotate(${!open ? "180deg" : "0deg"})`,
-            }}
-          />
-        </span>
-        {open && (
-          <ul className="absolute right-[-5px] top-[50px] z-10 w-[130px] rounded-[5px] bg-white bg-opacity-85 pl-3 pt-1 ring-1 ring-black ring-opacity-20">
-            {sortingOptions.map((option) => (
-              <li
-                key={option}
-                className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100"
-                onClick={() => handleSortChange(option)}
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-        )}
+        <NumberOfProducts />
+        <FilterSettingsIcon onClick={handleFilterOpen} />
+        <SortByMethod />
       </div>
       {filterOpen && (
         <>

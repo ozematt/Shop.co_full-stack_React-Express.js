@@ -12,7 +12,7 @@ import {
 const Shop = () => {
   //
   ////DATA
-  const { page, total, firstIndex, secondIndex } = usePagedItems();
+  const { page, total } = usePagedItems();
   const { isReadyToShow } = useTimeOut(1000);
 
   ////UI
@@ -26,11 +26,7 @@ const Shop = () => {
             <Filters />
           </div>
           <div className="w-full xl:ml-[20px]">
-            <ShopInfoBar
-              total={total}
-              first={firstIndex}
-              second={secondIndex}
-            />
+            <ShopInfoBar />
             <div className="mt-4 grid grid-cols-1 flex-wrap justify-center gap-5 sm:flex">
               {!isReadyToShow ? (
                 <CircularProgress color="inherit" className="m-auto" />

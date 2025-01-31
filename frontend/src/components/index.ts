@@ -36,6 +36,11 @@ import Alert from "./Alert";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 import NavIcons from "./NavIcons";
+import SortByMenu from "./SortByMenu";
+import NumberOfProducts from "./NumberOfProducts";
+import CategoryName from "./CategoryName";
+import FilterSettingsIcon from "./FilterSettingsIcon";
+import SortByMethod from "./SortByMethod";
 
 export {
   SignUp,
@@ -76,4 +81,9 @@ export {
   NavLinks,
   NavIcons,
   Logo,
+  SortByMenu,
+  NumberOfProducts,
+  CategoryName,
+  FilterSettingsIcon,
+  SortByMethod,
 };
