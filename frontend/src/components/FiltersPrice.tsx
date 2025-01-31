@@ -24,6 +24,7 @@ const FiltersPrice = ({ toggle, close }: FiltersPriceProps) => {
   const { fetchedProducts: allProducts, filteredProductsByCategory } =
     useSelector((state: RootState) => state.products);
 
+  //toggle open state if filter icon was clicked
   useEffect(() => {
     if (toggle) return setOpen(true);
     setOpen(false);

@@ -26,12 +26,10 @@ const FiltersCategory = ({ toggle, close }: FiltersCategoryProps) => {
   const [open, setOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(category);
 
-  //global state
   const { fetchedProducts: allProducts } = useSelector(
     (state: RootState) => state.products,
   );
 
-  // fetch category list
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategoriesList,
@@ -59,6 +57,7 @@ const FiltersCategory = ({ toggle, close }: FiltersCategoryProps) => {
     }
   }, [selectedCategory]);
 
+  //toggle open state if filter icon was clicked
   useEffect(() => {
     if (toggle) return setOpen(true);
     setOpen(false);
