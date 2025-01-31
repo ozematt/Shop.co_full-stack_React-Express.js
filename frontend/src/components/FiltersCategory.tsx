@@ -13,9 +13,10 @@ import {
 
 type FiltersCategoryProps = {
   toggle: boolean;
+  close?: () => void;
 };
 
-const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
+const FiltersCategory = ({ toggle, close }: FiltersCategoryProps) => {
   //
   ////DATA
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
     queryKey: ["categories"],
     queryFn: fetchCategoriesList,
   });
+
   ////LOGIC
   const categorizedProducts: Product[] = useMemo(
     () =>
@@ -65,6 +67,13 @@ const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
   const handleHeaderClick = () => {
     setOpen(!open), setSelectedCategory("");
   };
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`/shop/${category}`);
+    setSelectedCategory(category);
+    close?.();
+  };
+
   ////UI
   return (
     <>
@@ -75,11 +84,8 @@ const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
             <div
               key={category}
               className="flex items-center justify-between first:pt-6"
-              onClick={() => {
-                navigate(`/shop/${category}`), setSelectedCategory(category);
-              }}
+              onClick={() => handleCategoryClick(category)}
             >
-              {" "}
               <p className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100">
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </p>
