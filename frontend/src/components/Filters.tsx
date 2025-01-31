@@ -2,17 +2,20 @@ import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
 import { addCategorizedProducts } from "../redux/productsSlice";
-import { FiltersCategory, RotatingArrow, Sorting } from "./";
+import {
+  FilterHeader,
+  FiltersCategory,
+  FiltersPrice,
+  RotatingArrow,
+  Sorting,
+} from "./";
 import { settings } from "../assets";
 import { type Product, type FiltersProps } from "../lib/types";
 
 const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
   //
   ////DATA
-
   const [openFilters, setOpenFilters] = useState(false);
-
-  const [priceOpen, setPriceOpen] = useState(true); //price filter open/close
 
   const [priceRange, setPriceRange] = useState({
     from: "",
@@ -28,13 +31,8 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
   ////LOGIC
   //open/close all filters
   const handleFiltersOpen = useCallback(() => {
-    if (openFilters) {
-      setOpenFilters(false);
-      setPriceOpen(false);
-    } else {
-      setOpenFilters(true);
-      setPriceOpen(true);
-    }
+    if (openFilters) return setOpenFilters(false);
+    setOpenFilters(true);
   }, [openFilters]);
 
   //when selected category will change, updated filtered product list in global state and add actual category name
@@ -79,67 +77,19 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
   //UI
   return (
     <div className="rounded-[20px] px-6 pb-6 pt-[20px] ring-1 ring-black ring-opacity-20 dark:bg-zinc-900">
-      <div className="flex items-center justify-between pb-6">
-        {/*  filter header */}
-        <p className="font-satoshi text-[20px] font-bold">Filters</p>
-        <img
-          src={settings}
-          width={24}
-          height={24}
-          alt="settings"
-          className={`-rotate-90 ${iconHide ? "hidden" : ""} cursor-pointer opacity-60 hover:opacity-100 dark:invert`}
-          onClick={handleFiltersOpen}
-        />
-      </div>
-
-      {/* filter method */}
-      <div className="border-t-2 pb-6" />
+      <FilterHeader
+        title="Filters"
+        onClick={handleFiltersOpen}
+        state
+        main
+        iconHide={iconHide}
+      />
+      <hr className="mt-4 pb-6" />
       {sortOptions && <Sorting />}
       <FiltersCategory toggle={openFilters} />
-
-      <div className="border-t-2 pb-6" />
-      {/* PRICE */}
-      {/* price header */}
-      <div
-        onClick={() => setPriceOpen(!priceOpen)}
-        className="flex cursor-pointer items-center justify-between pb-6"
-      >
-        <p className="font-satoshi text-[20px] font-bold">Price</p>
-        <RotatingArrow rotateOn={priceOpen} />
-      </div>
-      {/* price range */}
-      {priceOpen && (
-        <div className="flex gap-2 pb-6">
-          <input
-            value={priceRange.from}
-            name="from"
-            onChange={(e) =>
-              setPriceRange((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            type="text"
-            className="h-7 w-full max-w-[120px] rounded-sm pl-2 ring-1 ring-black ring-opacity-20 placeholder:text-sm focus:outline-none focus:ring-black dark:bg-zinc-700"
-            placeholder="from:"
-          />
-          <input
-            value={priceRange.to}
-            name="to"
-            onChange={(e) =>
-              setPriceRange((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-            type="text"
-            className="h-7 w-full max-w-[120px] rounded-sm pl-2 ring-1 ring-black ring-opacity-20 placeholder:text-sm focus:outline-none focus:ring-black dark:bg-zinc-700"
-            placeholder="to:"
-          />
-        </div>
-      )}
-
-      <div className="border-t-2 pb-6" />
+      <hr className="pb-6" />
+      <FiltersPrice toggle={openFilters} />
+      <hr className="mt-6 pb-6" />
 
       <button
         onClick={handleFilterApply}

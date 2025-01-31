@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addSortMethod } from "../redux/productsSlice";
 import { AppDispatch, useAppDispatch } from "../redux/store";
 import { sortingOptions } from "../constants";
-import { RotatingArrow } from ".";
+import { FilterHeader } from ".";
 
 const Sorting = () => {
   //
@@ -13,15 +13,13 @@ const Sorting = () => {
   ////UI
   return (
     <>
-      <div
+      <FilterHeader
+        title="Sorting"
         onClick={() => {
           setOpen(!open);
         }}
-        className="flex cursor-pointer items-center justify-between"
-      >
-        <p className="font-satoshi text-[20px] font-bold">Sorting</p>
-        <RotatingArrow rotateOn={open} />
-      </div>
+        state={open}
+      />
       <div className="pb-6">
         {open &&
           sortingOptions.map((option) => (
@@ -37,7 +35,7 @@ const Sorting = () => {
             </div>
           ))}
       </div>
-      <div className="border-t-2 pb-6" />
+      <hr className="pb-6" />
     </>
   );
 };

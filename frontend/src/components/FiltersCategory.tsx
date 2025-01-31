@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { RotatingArrow } from ".";
+import { FilterHeader } from ".";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCategoriesList } from "../api/queries";
@@ -22,7 +22,7 @@ const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
   const dispatch: AppDispatch = useAppDispatch();
   const { category } = useParams();
 
-  const [categoryOpen, setCategoryOpen] = useState(true);
+  const [open, setOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(category);
 
   //global state
@@ -58,23 +58,19 @@ const FiltersCategory = ({ toggle }: FiltersCategoryProps) => {
   }, [selectedCategory]);
 
   useEffect(() => {
-    setCategoryOpen((prev) => !prev);
+    if (toggle) return setOpen(true);
+    setOpen(false);
   }, [toggle]);
 
+  const handleHeaderClick = () => {
+    setOpen(!open), setSelectedCategory("");
+  };
   ////UI
   return (
     <>
-      <div
-        onClick={() => {
-          setCategoryOpen(!categoryOpen), setSelectedCategory("");
-        }}
-        className="flex cursor-pointer items-center justify-between"
-      >
-        <p className="font-satoshi text-[20px] font-bold">Category</p>
-        <RotatingArrow rotateOn={categoryOpen} />
-      </div>
+      <FilterHeader title="Category" onClick={handleHeaderClick} state={open} />
       <div className="pb-6">
-        {categoryOpen &&
+        {open &&
           categories?.map((category) => (
             <div
               key={category}

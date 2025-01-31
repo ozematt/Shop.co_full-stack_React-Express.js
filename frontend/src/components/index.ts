@@ -44,6 +44,8 @@ import SortByMethod from "./SortByMethod";
 import FilterWindow from "./FilterWindow";
 import RotatingArrow from "./RotatingArrow";
 import FiltersCategory from "./FiltersCategory";
+import FiltersPrice from "./FiltersPrice";
+import FilterHeader from "./FilterHeader";
 
 export {
   SignUp,
@@ -92,4 +94,6 @@ export {
   SortByMethod,
   RotatingArrow,
   FiltersCategory,
+  FiltersPrice,
+  FilterHeader,
 };
