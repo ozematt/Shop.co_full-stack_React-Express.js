@@ -1,77 +1,43 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchCategoriesList } from "../api/queries";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState, useAppDispatch } from "../redux/store";
-import {
-  addCategorizedProducts,
-  addCategoryName,
-} from "../redux/productsSlice";
-import { RotatingArrow, Sorting } from "./";
-import { settings, arrow } from "../assets";
+import { addCategorizedProducts } from "../redux/productsSlice";
+import { FiltersCategory, RotatingArrow, Sorting } from "./";
+import { settings } from "../assets";
 import { type Product, type FiltersProps } from "../lib/types";
 
 const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
   //
   ////DATA
-  const { category } = useParams();
+
+  const [openFilters, setOpenFilters] = useState(false);
 
   const [priceOpen, setPriceOpen] = useState(true); //price filter open/close
-  const [categoryOpen, setCategoryOpen] = useState(true); //category filter open/close
-  const [selectedCategory, setSelectedCategory] = useState(category); //selected category name, initial from url
+
   const [priceRange, setPriceRange] = useState({
     from: "",
     to: "",
   });
 
-  const navigate = useNavigate();
   const dispatch: AppDispatch = useAppDispatch();
 
   //global state
   const { fetchedProducts: allProducts, filteredProductsByCategory } =
     useSelector((state: RootState) => state.products);
 
-  // fetch category list
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategoriesList,
-  });
-
   ////LOGIC
   //open/close all filters
   const handleFiltersOpen = useCallback(() => {
-    if (priceOpen && categoryOpen) {
-      setCategoryOpen(false);
+    if (openFilters) {
+      setOpenFilters(false);
       setPriceOpen(false);
     } else {
-      setCategoryOpen(true);
+      setOpenFilters(true);
       setPriceOpen(true);
     }
-  }, [priceOpen, categoryOpen]);
-
-  //filtered products by category
-  const categorizedProducts: Product[] = useMemo(
-    () =>
-      allProducts.products.filter(
-        (product) => product.category === selectedCategory,
-      ),
-    [allProducts.products, selectedCategory],
-  );
+  }, [openFilters]);
 
   //when selected category will change, updated filtered product list in global state and add actual category name
-  useEffect(() => {
-    if (selectedCategory) {
-      const dataToAdd = {
-        products: categorizedProducts,
-        total: categorizedProducts.length,
-        skip: 0,
-        limit: 0,
-      };
-      dispatch(addCategorizedProducts(dataToAdd));
-      dispatch(addCategoryName(selectedCategory ?? selectedCategory));
-    }
-  }, [selectedCategory]);
 
   //helper function
   const filterByPriceRange = (products: Product[], from: number, to: number) =>
@@ -128,38 +94,12 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
 
       {/* filter method */}
       <div className="border-t-2 pb-6" />
-      {sortOptions ? <Sorting /> : null}
+      {sortOptions && <Sorting />}
+      <FiltersCategory toggle={openFilters} />
 
-      {/* CATEGORY */}
-      <div
-        onClick={() => {
-          setCategoryOpen(!categoryOpen), setSelectedCategory("");
-        }}
-        className="flex cursor-pointer items-center justify-between"
-      >
-        <p className="font-satoshi text-[20px] font-bold">Category</p>
-        <RotatingArrow rotateOn={categoryOpen} />
-      </div>
-
-      <div className="pb-6">
-        {categoryOpen &&
-          categories?.map((category) => (
-            <div
-              key={category}
-              className="flex items-center justify-between first:pt-6"
-              onClick={() => {
-                navigate(`/shop/${category}`), setSelectedCategory(category);
-              }}
-            >
-              {" "}
-              <p className="cursor-pointer pb-2 font-satoshi opacity-60 hover:opacity-100">
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </p>
-            </div>
-          ))}
-      </div>
       <div className="border-t-2 pb-6" />
       {/* PRICE */}
+      {/* price header */}
       <div
         onClick={() => setPriceOpen(!priceOpen)}
         className="flex cursor-pointer items-center justify-between pb-6"
@@ -167,6 +107,7 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
         <p className="font-satoshi text-[20px] font-bold">Price</p>
         <RotatingArrow rotateOn={priceOpen} />
       </div>
+      {/* price range */}
       {priceOpen && (
         <div className="flex gap-2 pb-6">
           <input
@@ -199,6 +140,7 @@ const Filters = ({ iconHide, sortOptions, close }: FiltersProps) => {
       )}
 
       <div className="border-t-2 pb-6" />
+
       <button
         onClick={handleFilterApply}
         className="w-full rounded-full bg-black px-[86px] py-[15px] text-[14px] text-white transition duration-100 ease-in-out hover:scale-95 dark:bg-white dark:text-black"
