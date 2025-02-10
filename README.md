@@ -1,6 +1,6 @@
 # Shop.co - Built with Express.js
 
-Welcome to my project **Shop.co**! The project was created based on a free layout from Figma: [E-commerce Website Template (Freebie)](https://www.figma.com/community/file/1273571982885059508/e-commerce-website-template-freebie). The goal of this project is to practice working with modern frontend and backend tools.
+Welcome to my project Shop.co! The project is available in two versions: one using Express.js and the other using [NestJS](https://github.com/ozematt/Shop.co_full-stack_React-NestJS). It was created based on a free layout from Figma: [E-commerce Website Template (Freebie)](https://www.figma.com/community/file/1273571982885059508/e-commerce-website-template-freebie). The goal of this project is to practice working with modern frontend and backend tools.
 
 ## Features
 
