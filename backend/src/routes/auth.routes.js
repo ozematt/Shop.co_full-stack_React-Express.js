@@ -5,10 +5,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-const router = express.Router();
+const authRouter = express.Router();
 
 // Register a new user endpoint /auth/register
-router.post("/register", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   const hashedPassword = bcrypt.hashSync(password, 8);
@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
 });
 
 // Login a user endpoint /auth/login
-router.post("/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -64,4 +64,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-export default router;
+export default authRouter;

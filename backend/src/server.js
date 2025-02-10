@@ -1,18 +1,15 @@
+import { PORT } from "./config/env.js";
 import express from "express";
 import cors from "cors";
 import { connectToDatabase } from "./db.js";
 import { errorHandler } from "./utils/errorHandler.js";
-import authRoutes from "./routes/authRoutes.js";
+import authRoutes from "./routes/auth.routes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-import dotenv from "dotenv";
 import authMiddleware from "./middleware/authMiddleware.js";
 
-dotenv.config();
-
 const app = express();
-const PORT = process.env.BACKEND_PORT || 3005;
 
 // Middleware
 app.use(cors());
