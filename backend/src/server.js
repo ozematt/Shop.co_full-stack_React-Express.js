@@ -4,10 +4,10 @@ import cors from "cors";
 import { connectToDatabase } from "./db.js";
 import { errorHandler } from "./utils/errorHandler.js";
 import authRoutes from "./routes/auth.routes.js";
-import ordersRoutes from "./routes/ordersRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
+import ordersRoutes from "./routes/orders.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
-import authMiddleware from "./middleware/authMiddleware.js";
+import authMiddleware from "./middleware/auth.middleware.js";
 
 const app = express();
 

@@ -1,5 +1,11 @@
 import mysql from "mysql2";
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "./config/env";
+import {
+  DB_HOST,
+  DB_NAME,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_USER,
+} from "./config/env.js";
 
 const pool = mysql.createPool({
   host: DB_HOST, // Nazwa usługi z docker-compose.yml "127.0.0.1"
