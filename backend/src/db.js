@@ -8,11 +8,11 @@ import {
 } from "./config/env.js";
 
 const pool = mysql.createPool({
-  host: DB_HOST, // Nazwa usługi z docker-compose.yml "127.0.0.1"
-  user: DB_USER, // Użytkownik bazy danych
-  password: DB_PASSWORD, // Hasło użytkownika
-  database: DB_NAME, // Nazwa bazy danych
-  port: DB_PORT, // Port, na którym działa MySQL w kontenerze
+  host: DB_HOST, // Service name from docker-compose.yml "127.0.0.1"
+  user: DB_USER, // Database user
+  password: DB_PASSWORD, // User Password
+  database: DB_NAME, // Database name
+  port: DB_PORT, // The port on which MySQL is running in the container
 });
 
 const poolPromise = pool.promise();
