@@ -27,18 +27,33 @@ Welcome to my project Shop.co! The project is available in two versions: one usi
 
 ![Mobile](./screenshots/Home-Page_dark.webp)
 
-### Main View - Products
+### Main View - Shop 
 
-![ProductsView](./screenshots/Shop_view.webp)
+![ShopView](./screenshots/Shop_light.webp)
+
+### Main View - Shop -dark
+
+![ShopView](./screenshots/Shop_dark.webp)
+
+### Product Details
+
+![ShopView](./screenshots/Product-Details_light.webp)
+
+### Product Details - dark
+
+![ShopView](./screenshots/Product-Details_dark.webp)
 
 ### Shopping Cart
 
-![CartEmpty](./screenshots/Cart_view.webp)
+![CartEmpty](./screenshots/Cart_light.webp)
+
+### Shopping Cart
+
+![CartEmpty](./screenshots/Cart_dark.webp)
 
 ### Database Schema (to be expanded in the future)
 
 ![DatabaseSchema](./screenshots/Database_schema.webp)
-
 ## Technology
 
 The project was built using the following technologies:
