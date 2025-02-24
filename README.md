@@ -27,11 +27,11 @@ Welcome to my project Shop.co! The project is available in two versions: one usi
 
 ![Mobile](./screenshots/Home-Page_dark.webp)
 
-### Main View - Shop 
+### Shop View 
 
 ![ShopView](./screenshots/Shop_light.webp)
 
-### Main View - Shop -dark
+### Shop View - dark
 
 ![ShopView](./screenshots/Shop_dark.webp)
 
@@ -47,7 +47,7 @@ Welcome to my project Shop.co! The project is available in two versions: one usi
 
 ![CartEmpty](./screenshots/Cart_light.webp)
 
-### Shopping Cart
+### Shopping Cart - dark
 
 ![CartEmpty](./screenshots/Cart_dark.webp)
 
